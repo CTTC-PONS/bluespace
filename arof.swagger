@@ -11,14 +11,17 @@
     "http"
   ],
   "paths": {
-    "/arof/{arof_id}/": {
+    "/arof/{arof_id}": {
       "put": {
         "responses": {
           "200": {
-            "description": "Successful operation"
+            "description": "Successful operation",
+            "schema": {
+              "$ref": "#/definitions/operation"
+            }
           },
           "400": {
-            "description": "Internal Error"
+            "description": "Invalid ID supplied"
           }
         },
         "description": "Update operation of resource: laser",
@@ -29,7 +32,17 @@
             "type": "integer",
             "description": "arof id",
             "required": true
+          },
+          {
+            "name": "enable",
+            "in": "formData",
+            "type": "boolean",
+            "description": "enable or disable the laser",
+            "required": false
           }
+        ],
+        "consumes": [
+          "application/x-www-form-urlencoded"
         ],
         "produces": [
           "application/json"
@@ -40,10 +53,13 @@
       "post": {
         "responses": {
           "200": {
-            "description": "Successful operation"
+            "description": "Successful operation",
+            "schema": {
+              "$ref": "#/definitions/operation"
+            }
           },
           "400": {
-            "description": "Internal Error"
+            "description": "Invalid ID supplied"
           }
         },
         "description": "Create operation of resource: laser",
@@ -54,15 +70,22 @@
             "type": "integer",
             "description": "arof id",
             "required": true
+          },
+          {
+            "name": "enable",
+            "in": "formData",
+            "type": "boolean",
+            "description": "enable or disable the laser",
+            "required": false
           }
+        ],
+        "consumes": [
+          "application/x-www-form-urlencoded"
         ],
         "produces": [
           "application/json"
         ],
         "summary": "Create configuration by ID",
-        "consumes": [
-          "application/json"
-        ],
         "operationId": "create_configuration_by_id"
       },
       "delete": {
@@ -91,17 +114,13 @@
         "operationId": "delete_configuration_by_id"
       }
     },
-    "/arof/": {
+    "/arof": {
       "get": {
         "responses": {
           "200": {
             "description": "Successful operation",
             "schema": {
-              "type": "dict",
-              "example": {
-                "laser_enable": "boolean (true | false)",
-                "“arof_id”:number value": null
-              }
+              "$ref": "#/definitions/operations"
             }
           },
           "400": {
@@ -115,6 +134,25 @@
         ],
         "summary": "Retrieve configuration",
         "operationId": "retrieve_configuration"
+      }
+    }
+  },
+  "definitions": {
+    "operation": {
+      "type": "object",
+      "properties": {
+        "laser_enable": {
+          "type": "boolean"
+        },
+        "arof_id": {
+          "type": "integer"
+        }
+      }
+    },
+    "operations": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/operation"
       }
     }
   }
