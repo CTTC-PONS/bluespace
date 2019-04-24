@@ -1,0 +1,121 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "version": "1.0.0",
+    "description": "AROF Configuration API",
+    "title": "AROF API"
+  },
+  "host": "10.1.1.10:5002",
+  "basePath": "/api",
+  "schemes": [
+    "http"
+  ],
+  "paths": {
+    "/arof/{arof_id}/": {
+      "put": {
+        "responses": {
+          "200": {
+            "description": "Successful operation"
+          },
+          "400": {
+            "description": "Internal Error"
+          }
+        },
+        "description": "Update operation of resource: laser",
+        "parameters": [
+          {
+            "name": "arof_id",
+            "in": "path",
+            "type": "integer",
+            "description": "arof id",
+            "required": true
+          }
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "summary": "Update configuration by ID",
+        "operationId": "update_arof_by_id"
+      },
+      "post": {
+        "responses": {
+          "200": {
+            "description": "Successful operation"
+          },
+          "400": {
+            "description": "Internal Error"
+          }
+        },
+        "description": "Create operation of resource: laser",
+        "parameters": [
+          {
+            "name": "arof_id",
+            "in": "path",
+            "type": "integer",
+            "description": "arof id",
+            "required": true
+          }
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "summary": "Create configuration by ID",
+        "consumes": [
+          "application/json"
+        ],
+        "operationId": "create_configuration_by_id"
+      },
+      "delete": {
+        "responses": {
+          "200": {
+            "description": "Successful operation"
+          },
+          "400": {
+            "description": "Internal Error"
+          }
+        },
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "arof_id",
+            "in": "path",
+            "type": "integer",
+            "description": "arof id",
+            "required": true
+          }
+        ],
+        "description": "Delete operation of resource: laser",
+        "summary": "Delete configuration by ID",
+        "operationId": "delete_configuration_by_id"
+      }
+    },
+    "/arof/": {
+      "get": {
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "schema": {
+              "type": "dict",
+              "example": {
+                "laser_enable": "boolean (true | false)",
+                "“arof_id”:number value": null
+              }
+            }
+          },
+          "400": {
+            "description": "Internal Error"
+          }
+        },
+        "description": "Retrieve operation of resource: laser",
+        "parameters": [],
+        "produces": [
+          "application/json"
+        ],
+        "summary": "Retrieve configuration",
+        "operationId": "retrieve_configuration"
+      }
+    }
+  }
+}
