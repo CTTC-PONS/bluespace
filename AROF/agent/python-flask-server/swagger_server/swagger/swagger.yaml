@@ -31,7 +31,7 @@ paths:
         200:
           description: "Successful operation"
           schema:
-            $ref: "#/definitions/operations"
+            $ref: "#/definitions/Operation"
         400:
           description: "Invalid ID supplied"
       x-swagger-router-controller: "swagger_server.controllers.default_controller"
@@ -56,7 +56,7 @@ paths:
         200:
           description: "Successful operation"
           schema:
-            $ref: "#/definitions/operations"
+            $ref: "#/definitions/Operation"
         400:
           description: "Invalid ID supplied"
       x-swagger-router-controller: "swagger_server.controllers.default_controller"
@@ -90,18 +90,20 @@ paths:
         200:
           description: "Successful operation"
           schema:
-            $ref: "#/definitions/operations"
+            type: "array"
+            items:
+              $ref: "#/definitions/Operation"
         400:
           description: "Internal Error"
       x-swagger-router-controller: "swagger_server.controllers.default_controller"
 definitions:
-  operations:
-    type: "array"
-    items:
-      $ref: "#/definitions/operations_inner"
-  operations_inner:
+  Operation:
+    type: "object"
     properties:
       arof_id:
         type: "integer"
-      laser_enable:
+      enable:
         type: "boolean"
+    example:
+      arof_id: 0
+      enable: true

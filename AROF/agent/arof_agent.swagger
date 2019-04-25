@@ -17,7 +17,7 @@
           "200": {
             "description": "Successful operation",
             "schema": {
-              "$ref": "#/definitions/operations"
+              "$ref": "#/definitions/Operation"
             }
           },
           "400": {
@@ -52,7 +52,7 @@
           "200": {
             "description": "Successful operation",
             "schema": {
-              "$ref": "#/definitions/operations"
+              "$ref": "#/definitions/Operation"
             }
           },
           "400": {
@@ -114,7 +114,10 @@
           "200": {
             "description": "Successful operation",
             "schema": {
-              "$ref": "#/definitions/operations"
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/Operation"
+              }
             }
           },
           "400": {
@@ -132,17 +135,14 @@
     }
   },
   "definitions": {
-    "operations": {
-      "type": "array",
-      "items": {
-        "type": "object",
-        "properties": {
-          "arof_id": {
-            "type": "integer"
-          },
-          "laser_enable": {
-            "type": "boolean"
-          }
+    "Operation": {
+      "type": "object",
+      "properties": {
+        "arof_id": {
+          "type": "integer"
+        },
+        "enable": {
+          "type": "boolean"
         }
       }
     }

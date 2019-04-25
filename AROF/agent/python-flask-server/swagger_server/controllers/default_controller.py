@@ -1,8 +1,10 @@
 import connexion
 import six
 
-from swagger_server.models.operations import Operations  # noqa: E501
+from swagger_server.models.operation import Operation  # noqa: E501
 from swagger_server import util
+
+operations = list()
 
 
 def create_configuration_by_id(arof_id, enable=None):  # noqa: E501
@@ -15,9 +17,11 @@ def create_configuration_by_id(arof_id, enable=None):  # noqa: E501
     :param enable: enable or disable the laser
     :type enable: bool
 
-    :rtype: Operations
+    :rtype: Operation
     """
-    return 'do some magic!'
+    op = Operation(arof_id, enable)
+    operations.append(op)
+    return op
 
 
 def delete_configuration_by_id(arof_id):  # noqa: E501
@@ -39,9 +43,9 @@ def retrieve_configuration():  # noqa: E501
     Retrieve operation of resource: laser # noqa: E501
 
 
-    :rtype: Operations
+    :rtype: List[Operation]
     """
-    return 'do some magic!'
+    return operations
 
 
 def update_arof_by_id(arof_id, enable=None):  # noqa: E501
@@ -54,6 +58,7 @@ def update_arof_by_id(arof_id, enable=None):  # noqa: E501
     :param enable: enable or disable the laser
     :type enable: bool
 
-    :rtype: Operations
+    :rtype: Operation
     """
-    return 'do some magic!'
+    op = Operation(arof_id, enable)
+    return op
