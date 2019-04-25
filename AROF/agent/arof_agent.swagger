@@ -5,7 +5,7 @@
     "description": "AROF Configuration API",
     "title": "AROF API"
   },
-  "host": "10.1.7.65:5001",
+  "host": "localhost:5001",
   "basePath": "/api",
   "schemes": [
     "http"
@@ -17,7 +17,7 @@
           "200": {
             "description": "Successful operation",
             "schema": {
-              "$ref": "#/definitions/operation"
+              "$ref": "#/definitions/operations"
             }
           },
           "400": {
@@ -35,14 +35,11 @@
           },
           {
             "name": "enable",
-            "in": "formData",
+            "in": "query",
             "type": "boolean",
             "description": "enable or disable the laser",
             "required": false
           }
-        ],
-        "consumes": [
-          "application/x-www-form-urlencoded"
         ],
         "produces": [
           "application/json"
@@ -55,7 +52,7 @@
           "200": {
             "description": "Successful operation",
             "schema": {
-              "$ref": "#/definitions/operation"
+              "$ref": "#/definitions/operations"
             }
           },
           "400": {
@@ -73,14 +70,11 @@
           },
           {
             "name": "enable",
-            "in": "formData",
+            "in": "query",
             "type": "boolean",
             "description": "enable or disable the laser",
             "required": false
           }
-        ],
-        "consumes": [
-          "application/x-www-form-urlencoded"
         ],
         "produces": [
           "application/json"
@@ -138,7 +132,7 @@
     }
   },
   "definitions": {
-    "operation": {
+    "operations": {
       "type": "object",
       "properties": {
         "laser_enable": {
@@ -147,12 +141,6 @@
         "arof_id": {
           "type": "integer"
         }
-      }
-    },
-    "operations": {
-      "type": "array",
-      "items": {
-        "$ref": "#/definitions/operation"
       }
     }
   }

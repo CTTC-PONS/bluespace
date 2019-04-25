@@ -6,7 +6,6 @@ from datetime import date, datetime  # noqa: F401
 from typing import List, Dict  # noqa: F401
 
 from swagger_server.models.base_model_ import Model
-from swagger_server.models.operation import Operation  # noqa: F401,E501
 from swagger_server import util
 
 
@@ -16,15 +15,26 @@ class Operations(Model):
     Do not edit the class manually.
     """
 
-    def __init__(self):  # noqa: E501
+    def __init__(self, laser_enable: bool=None, arof_id: int=None):  # noqa: E501
         """Operations - a model defined in Swagger
 
+        :param laser_enable: The laser_enable of this Operations.  # noqa: E501
+        :type laser_enable: bool
+        :param arof_id: The arof_id of this Operations.  # noqa: E501
+        :type arof_id: int
         """
         self.swagger_types = {
+            'laser_enable': bool,
+            'arof_id': int
         }
 
         self.attribute_map = {
+            'laser_enable': 'laser_enable',
+            'arof_id': 'arof_id'
         }
+
+        self._laser_enable = laser_enable
+        self._arof_id = arof_id
 
     @classmethod
     def from_dict(cls, dikt) -> 'Operations':
@@ -36,3 +46,45 @@ class Operations(Model):
         :rtype: Operations
         """
         return util.deserialize_model(dikt, cls)
+
+    @property
+    def laser_enable(self) -> bool:
+        """Gets the laser_enable of this Operations.
+
+
+        :return: The laser_enable of this Operations.
+        :rtype: bool
+        """
+        return self._laser_enable
+
+    @laser_enable.setter
+    def laser_enable(self, laser_enable: bool):
+        """Sets the laser_enable of this Operations.
+
+
+        :param laser_enable: The laser_enable of this Operations.
+        :type laser_enable: bool
+        """
+
+        self._laser_enable = laser_enable
+
+    @property
+    def arof_id(self) -> int:
+        """Gets the arof_id of this Operations.
+
+
+        :return: The arof_id of this Operations.
+        :rtype: int
+        """
+        return self._arof_id
+
+    @arof_id.setter
+    def arof_id(self, arof_id: int):
+        """Sets the arof_id of this Operations.
+
+
+        :param arof_id: The arof_id of this Operations.
+        :type arof_id: int
+        """
+
+        self._arof_id = arof_id

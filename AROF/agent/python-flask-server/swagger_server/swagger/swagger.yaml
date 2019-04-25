@@ -4,7 +4,7 @@ info:
   description: "AROF Configuration API"
   version: "1.0.0"
   title: "AROF API"
-host: "localhost:5001"
+host: "10.1.7.65:5001"
 basePath: "/api"
 schemes:
 - "http"
@@ -31,7 +31,7 @@ paths:
         200:
           description: "Successful operation"
           schema:
-            $ref: "#/definitions/operation"
+            $ref: "#/definitions/operations"
         400:
           description: "Invalid ID supplied"
       x-swagger-router-controller: "swagger_server.controllers.default_controller"
@@ -56,7 +56,7 @@ paths:
         200:
           description: "Successful operation"
           schema:
-            $ref: "#/definitions/operation"
+            $ref: "#/definitions/operations"
         400:
           description: "Invalid ID supplied"
       x-swagger-router-controller: "swagger_server.controllers.default_controller"
@@ -95,7 +95,7 @@ paths:
           description: "Internal Error"
       x-swagger-router-controller: "swagger_server.controllers.default_controller"
 definitions:
-  operation:
+  operations:
     type: "object"
     properties:
       laser_enable:
@@ -105,7 +105,3 @@ definitions:
     example:
       arof_id: 0
       laser_enable: true
-  operations:
-    type: "object"
-    additionalProperties:
-      $ref: "#/definitions/operation"
