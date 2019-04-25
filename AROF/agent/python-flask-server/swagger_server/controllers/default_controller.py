@@ -1,6 +1,7 @@
 import connexion
 import six
 
+from swagger_server.models.operation import Operation  # noqa: E501
 from swagger_server.models.operations import Operations  # noqa: E501
 from swagger_server import util
 
@@ -15,7 +16,7 @@ def create_configuration_by_id(arof_id, enable=None):  # noqa: E501
     :param enable: enable or disable the laser
     :type enable: bool
 
-    :rtype: Operations
+    :rtype: Operation
     """
     return 'do some magic!'
 
@@ -54,6 +55,6 @@ def update_arof_by_id(arof_id, enable=None):  # noqa: E501
     :param enable: enable or disable the laser
     :type enable: bool
 
-    :rtype: Operations
+    :rtype: Operation
     """
     return 'do some magic!'
