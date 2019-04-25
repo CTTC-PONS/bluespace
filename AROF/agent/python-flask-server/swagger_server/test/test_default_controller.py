@@ -18,12 +18,11 @@ class TestDefaultController(BaseTestCase):
 
         Create configuration by ID
         """
-        data = dict(enable=true)
+        query_string = [('enable', true)]
         response = self.client.open(
             '/api/arof/{arof_id}'.format(arof_id=56),
             method='POST',
-            data=data,
-            content_type='application/x-www-form-urlencoded')
+            query_string=query_string)
         self.assert200(response,
                        'Response body is : ' + response.data.decode('utf-8'))
 
@@ -54,12 +53,11 @@ class TestDefaultController(BaseTestCase):
 
         Update configuration by ID
         """
-        data = dict(enable=true)
+        query_string = [('enable', true)]
         response = self.client.open(
             '/api/arof/{arof_id}'.format(arof_id=56),
             method='PUT',
-            data=data,
-            content_type='application/x-www-form-urlencoded')
+            query_string=query_string)
         self.assert200(response,
                        'Response body is : ' + response.data.decode('utf-8'))
 

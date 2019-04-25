@@ -4,7 +4,7 @@ info:
   description: "AROF Configuration API"
   version: "1.0.0"
   title: "AROF API"
-host: "localhost:5001"
+host: "10.1.7.65:5001"
 basePath: "/api"
 schemes:
 - "http"
@@ -14,8 +14,6 @@ paths:
       summary: "Create configuration by ID"
       description: "Create operation of resource: laser"
       operationId: "create_configuration_by_id"
-      consumes:
-      - "application/x-www-form-urlencoded"
       produces:
       - "application/json"
       parameters:
@@ -25,7 +23,7 @@ paths:
         required: true
         type: "integer"
       - name: "enable"
-        in: "formData"
+        in: "query"
         description: "enable or disable the laser"
         required: false
         type: "boolean"
@@ -41,8 +39,6 @@ paths:
       summary: "Update configuration by ID"
       description: "Update operation of resource: laser"
       operationId: "update_arof_by_id"
-      consumes:
-      - "application/x-www-form-urlencoded"
       produces:
       - "application/json"
       parameters:
@@ -52,7 +48,7 @@ paths:
         required: true
         type: "integer"
       - name: "enable"
-        in: "formData"
+        in: "query"
         description: "enable or disable the laser"
         required: false
         type: "boolean"

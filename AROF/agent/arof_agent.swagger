@@ -35,14 +35,11 @@
           },
           {
             "name": "enable",
-            "in": "formData",
+            "in": "query",
             "type": "boolean",
             "description": "enable or disable the laser",
             "required": false
           }
-        ],
-        "consumes": [
-          "application/x-www-form-urlencoded"
         ],
         "produces": [
           "application/json"
@@ -73,14 +70,11 @@
           },
           {
             "name": "enable",
-            "in": "formData",
+            "in": "query",
             "type": "boolean",
             "description": "enable or disable the laser",
             "required": false
           }
-        ],
-        "consumes": [
-          "application/x-www-form-urlencoded"
         ],
         "produces": [
           "application/json"
