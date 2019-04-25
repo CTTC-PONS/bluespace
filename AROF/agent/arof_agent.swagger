@@ -133,8 +133,8 @@
   },
   "definitions": {
     "operations": {
-      "type": "object",
-      "additionalProperties": {
+      "type": "array",
+      "items": {
         "$ref": "#/definitions/operation"
       }
     },

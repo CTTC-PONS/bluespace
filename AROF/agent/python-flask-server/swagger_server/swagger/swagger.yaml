@@ -96,8 +96,8 @@ paths:
       x-swagger-router-controller: "swagger_server.controllers.default_controller"
 definitions:
   operations:
-    type: "object"
-    additionalProperties:
+    type: "array"
+    items:
       $ref: "#/definitions/operation"
   operation:
     type: "object"
