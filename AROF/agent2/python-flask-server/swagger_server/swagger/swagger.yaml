@@ -1,0 +1,115 @@
+---
+swagger: "2.0"
+info:
+  description: "AROF Configuration API"
+  version: "1.0.0"
+  title: "AROF API"
+host: "10.1.7.67:5001"
+basePath: "/api"
+schemes:
+- "http"
+paths:
+  /arof/{arof_id}:
+    post:
+      summary: "Create configuration by ID"
+      description: "Create operation of resource: laser"
+      operationId: "create_configuration_by_id"
+      consumes:
+      - "application/x-www-form-urlencoded"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "arof_id"
+        in: "path"
+        description: "arof id"
+        required: true
+        type: "integer"
+      - name: "enable"
+        in: "formData"
+        description: "enable or disable the laser"
+        required: false
+        type: "boolean"
+      responses:
+        200:
+          description: "Successful operation"
+          schema:
+            $ref: "#/definitions/operation"
+        400:
+          description: "Invalid ID supplied"
+      x-swagger-router-controller: "swagger_server.controllers.default_controller"
+    put:
+      summary: "Update configuration by ID"
+      description: "Update operation of resource: laser"
+      operationId: "update_arof_by_id"
+      consumes:
+      - "application/x-www-form-urlencoded"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "arof_id"
+        in: "path"
+        description: "arof id"
+        required: true
+        type: "integer"
+      - name: "enable"
+        in: "formData"
+        description: "enable or disable the laser"
+        required: false
+        type: "boolean"
+      responses:
+        200:
+          description: "Successful operation"
+          schema:
+            $ref: "#/definitions/operation"
+        400:
+          description: "Invalid ID supplied"
+      x-swagger-router-controller: "swagger_server.controllers.default_controller"
+    delete:
+      summary: "Delete configuration by ID"
+      description: "Delete operation of resource: laser"
+      operationId: "delete_configuration_by_id"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "arof_id"
+        in: "path"
+        description: "arof id"
+        required: true
+        type: "integer"
+      responses:
+        200:
+          description: "Successful operation"
+        400:
+          description: "Internal Error"
+      x-swagger-router-controller: "swagger_server.controllers.default_controller"
+  /arof:
+    get:
+      summary: "Retrieve configuration"
+      description: "Retrieve operation of resource: laser"
+      operationId: "retrieve_configuration"
+      produces:
+      - "application/json"
+      parameters: []
+      responses:
+        200:
+          description: "Successful operation"
+          schema:
+            $ref: "#/definitions/operations"
+        400:
+          description: "Internal Error"
+      x-swagger-router-controller: "swagger_server.controllers.default_controller"
+definitions:
+  operation:
+    type: "object"
+    properties:
+      laser_enable:
+        type: "boolean"
+      arof_id:
+        type: "integer"
+    example:
+      arof_id: 0
+      laser_enable: true
+  operations:
+    type: "array"
+    items:
+      $ref: "#/definitions/operation"
