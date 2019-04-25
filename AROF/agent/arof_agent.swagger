@@ -5,7 +5,7 @@
     "description": "AROF Configuration API",
     "title": "AROF API"
   },
-  "host": "10.1.7.65:5001",
+  "host": "localhost:5001",
   "basePath": "/api",
   "schemes": [
     "http"
