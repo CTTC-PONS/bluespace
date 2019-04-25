@@ -17,7 +17,7 @@
           "200": {
             "description": "Successful operation",
             "schema": {
-              "$ref": "#/definitions/operation"
+              "$ref": "#/definitions/operations"
             }
           },
           "400": {
@@ -52,7 +52,7 @@
           "200": {
             "description": "Successful operation",
             "schema": {
-              "$ref": "#/definitions/operation"
+              "$ref": "#/definitions/operations"
             }
           },
           "400": {

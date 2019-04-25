@@ -31,7 +31,7 @@ paths:
         200:
           description: "Successful operation"
           schema:
-            $ref: "#/definitions/operation"
+            $ref: "#/definitions/operations"
         400:
           description: "Invalid ID supplied"
       x-swagger-router-controller: "swagger_server.controllers.default_controller"
@@ -56,7 +56,7 @@ paths:
         200:
           description: "Successful operation"
           schema:
-            $ref: "#/definitions/operation"
+            $ref: "#/definitions/operations"
         400:
           description: "Invalid ID supplied"
       x-swagger-router-controller: "swagger_server.controllers.default_controller"
