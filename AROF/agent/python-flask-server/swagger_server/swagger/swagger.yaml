@@ -4,7 +4,7 @@ info:
   description: "AROF Configuration API"
   version: "1.0.0"
   title: "AROF API"
-host: "10.1.7.65:5001"
+host: "localhost:5001"
 basePath: "/api"
 schemes:
 - "http"
@@ -98,14 +98,10 @@ definitions:
   operations:
     type: "array"
     items:
-      $ref: "#/definitions/operation"
-  operation:
-    type: "object"
+      $ref: "#/definitions/operations_inner"
+  operations_inner:
     properties:
       arof_id:
         type: "integer"
       laser_enable:
         type: "boolean"
-    example:
-      arof_id: 0
-      laser_enable: true

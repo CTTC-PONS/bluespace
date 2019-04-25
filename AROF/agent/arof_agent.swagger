@@ -135,17 +135,14 @@
     "operations": {
       "type": "array",
       "items": {
-        "$ref": "#/definitions/operation"
-      }
-    },
-    "operation": {
-      "type": "object",
-      "properties": {
-        "arof_id": {
-          "type": "integer"
-        },
-        "laser_enable": {
-          "type": "boolean"
+        "type": "object",
+        "properties": {
+          "arof_id": {
+            "type": "integer"
+          },
+          "laser_enable": {
+            "type": "boolean"
+          }
         }
       }
     }
