@@ -6,9 +6,8 @@ sys.path.append('/root/agent-bvt/')
 from lib.laser.laser import Laser
 
 operations = list()
-ip = '10.1.1.7'
-addr = '11'
-laser = Laser(ip, addr)
+laser = Laser('10.1.1.7', '11')
+
 
 def create_operation(arof_id, enable):
     """
@@ -23,7 +22,7 @@ def create_operation(arof_id, enable):
     """
     op = Operation(arof_id, enable)
     if op not in operations:
-        laser.enable(arof_id, enable)
+        # laser.enable(arof_id, enable)
         operations.append(op)
     return op
 
@@ -41,9 +40,9 @@ def update_operation(arof_id, enable):
     """
     for item in operations:
         if item.arof_id == arof_id:
+            # laser.enable(arof_id, enable)
             item.arof_id = arof_id
             item.enable = enable
-            laser.enable(arof_id, enable)
             return item
 
 
@@ -58,5 +57,5 @@ def delete_operation(arof_id):
     """
     for item in operations:
         if item.arof_id == arof_id:
-            laser.enable(arof_id, False)
+            # laser.enable(arof_id, False)
             operations.remove(item)
