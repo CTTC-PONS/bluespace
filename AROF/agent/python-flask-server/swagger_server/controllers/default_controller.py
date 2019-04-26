@@ -31,7 +31,7 @@ def delete_configuration_by_id(arof_id):  # noqa: E501
 
     :rtype: None
     """
-    return 'do some magic!'
+    database.delete_operation(arof_id)
 
 
 def retrieve_configuration():  # noqa: E501
@@ -57,5 +57,4 @@ def update_arof_by_id(arof_id, enable=None):  # noqa: E501
 
     :rtype: Operation
     """
-    op = Operation(arof_id, enable)
-    return op
+    return database.update_operation(arof_id, enable)
