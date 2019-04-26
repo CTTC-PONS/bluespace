@@ -24,7 +24,7 @@ def post(host, id):
 
 def put(host, id):
     payload = {'enable': False}
-    request = requests.post('http://%s:5001/api/arof/%s' % (host, id), headers=headers, params=payload)
+    request = requests.put('http://%s:5001/api/arof/%s' % (host, id), headers=headers, params=payload)
     return request.json()
 
 
@@ -34,19 +34,18 @@ def delete(host, id):
 
 
 if __name__ == '__main__':
-    # POST
+    print("POST")
     print(post(host_1, 2))
     print(post(host_2, 2))
-    # GET
+    print("GET")
     print(get(host_1))
     print(get(host_2))
-    # PUT
+    print("PUT")
     print(put(host_1, 2))
     print(put(host_2, 2))
-    # GET
+    print("GET")
     print(get(host_1))
     print(get(host_2))
-
-    # DELETE
+    print("DELETE")
     print(delete(host_1, 2))
     print(delete(host_2, 2))
