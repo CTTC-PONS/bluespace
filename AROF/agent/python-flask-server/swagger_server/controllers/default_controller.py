@@ -3,11 +3,10 @@ import six
 
 from swagger_server.models.operation import Operation  # noqa: E501
 from swagger_server import util
+from swagger_server import database
 
-operations = list()
 
-
-def create_configuration_by_id(arof_id, enable=None):  # noqa: E501
+def create_configuration_by_id(arof_id, enable=False):  # noqa: E501
     """Create configuration by ID
 
     Create operation of resource: laser # noqa: E501
@@ -19,9 +18,7 @@ def create_configuration_by_id(arof_id, enable=None):  # noqa: E501
 
     :rtype: Operation
     """
-    op = Operation(arof_id, enable)
-    operations.append(op)
-    return op
+    return database.create_operation(arof_id, enable)
 
 
 def delete_configuration_by_id(arof_id):  # noqa: E501
@@ -45,7 +42,7 @@ def retrieve_configuration():  # noqa: E501
 
     :rtype: List[Operation]
     """
-    return operations
+    return database.operations
 
 
 def update_arof_by_id(arof_id, enable=None):  # noqa: E501
