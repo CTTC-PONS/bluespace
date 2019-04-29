@@ -53,10 +53,9 @@ def delete(host, id):
     :type host: str
     :param id: laser id
     :type id: int
-    :return:
     """
     request = requests.delete('http://%s:5001/api/arof/%s' % (host, id), headers=headers)
-    return request
+    # return request
 
 
 if __name__ == '__main__':
@@ -77,7 +76,7 @@ if __name__ == '__main__':
     print(put(host, 3, status))
     print(put(host, 4, status))
 
-    print("GET OPERATIONS on LASERS")
+    print("GET OPERATIONS ON LASERS")
     print(get(host))
 
     print("DISABLE LASERS 1 AND 2")
@@ -89,7 +88,8 @@ if __name__ == '__main__':
     print(get(host))
 
     print("DISABLE LASERS")
-    print(delete(host, 1))
-    print(delete(host, 2))
-    print(delete(host, 3))
-    print(delete(host, 4))
+    delete(host, 1)
+    delete(host, 2)
+    delete(host, 3)
+    delete(host, 4)
+    print(get(host))
