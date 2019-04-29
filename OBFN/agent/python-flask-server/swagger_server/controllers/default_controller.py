@@ -3,12 +3,13 @@ import six
 
 from swagger_server.models.operation import Operation  # noqa: E501
 from swagger_server import util
+from swagger_server import database
 
 
 def create_configuration(body):  # noqa: E501
     """Create configuration
 
-    Create operations of resource: beam # noqa: E501
+    Create operations_list of resource: beam # noqa: E501
 
     :param body: configuration parameters
     :type body: list | bytes
@@ -17,7 +18,8 @@ def create_configuration(body):  # noqa: E501
     """
     if connexion.request.is_json:
         body = [Operation.from_dict(d) for d in connexion.request.get_json()]  # noqa: E501
-    return 'do some magic!'
+        database.operations = body
+    return database.operations
 
 
 def delete_configuration():  # noqa: E501
@@ -28,7 +30,8 @@ def delete_configuration():  # noqa: E501
 
     :rtype: None
     """
-    return 'do some magic!'
+    operations = list()
+    return operations
 
 
 def retrieve_configuration():  # noqa: E501
@@ -39,7 +42,7 @@ def retrieve_configuration():  # noqa: E501
 
     :rtype: List[Operation]
     """
-    return 'do some magic!'
+    return database.operations
 
 
 def update_configuration_by_id(beam_id, X_offset_angle=None, Y_offset_angle=None):  # noqa: E501
@@ -56,4 +59,4 @@ def update_configuration_by_id(beam_id, X_offset_angle=None, Y_offset_angle=None
 
     :rtype: Operation
     """
-    return 'do some magic!'
+    return database.update_operation(beam_id, X_offset_angle, Y_offset_angle)
