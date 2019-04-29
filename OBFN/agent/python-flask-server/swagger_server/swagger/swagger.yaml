@@ -1,0 +1,114 @@
+---
+swagger: "2.0"
+info:
+  description: "OBFN Configuration API"
+  version: "1.0.0"
+  title: "OBFN API"
+host: "10.1.7.64:5002"
+basePath: "/api"
+schemes:
+- "http"
+paths:
+  /obfn:
+    get:
+      summary: "Retrieve configuration"
+      description: "Retrieve operations of resource: beam"
+      operationId: "retrieve_configuration"
+      produces:
+      - "application/json"
+      parameters: []
+      responses:
+        200:
+          description: "Successful operation"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/Operation"
+        400:
+          description: "Internal Error"
+      x-swagger-router-controller: "swagger_server.controllers.default_controller"
+    post:
+      summary: "Create configuration"
+      description: "Create operations of resource: beam"
+      operationId: "create_configuration"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "configuration parameters"
+        required: true
+        schema:
+          type: "array"
+          items:
+            $ref: "#/definitions/Operation"
+      responses:
+        200:
+          description: "Successful operation"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/Operation"
+        400:
+          description: "Invalid parameters supplied"
+      x-swagger-router-controller: "swagger_server.controllers.default_controller"
+    delete:
+      summary: "Delete configuration"
+      description: "Delete operations of resource: beam"
+      operationId: "delete_configuration"
+      produces:
+      - "application/json"
+      parameters: []
+      responses:
+        200:
+          description: "Successful operation"
+        400:
+          description: "Internal Error"
+      x-swagger-router-controller: "swagger_server.controllers.default_controller"
+  /obfn/{beam_id}:
+    put:
+      summary: "Update configuration by ID"
+      description: "Update operation of resource: beam"
+      operationId: "update_configuration_by_id"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "beam_id"
+        in: "path"
+        description: "beam id"
+        required: true
+        type: "integer"
+      - name: "X_offset_angle"
+        in: "query"
+        description: "X Offset Angle (deg)"
+        required: false
+        type: "integer"
+      - name: "Y_offset_angle"
+        in: "query"
+        description: "Y Offset Angle (deg)"
+        required: false
+        type: "integer"
+      responses:
+        200:
+          description: "Successful operation"
+          schema:
+            $ref: "#/definitions/Operation"
+        400:
+          description: "Invalid ID supplied"
+      x-swagger-router-controller: "swagger_server.controllers.default_controller"
+definitions:
+  Operation:
+    type: "object"
+    properties:
+      beam_id:
+        type: "integer"
+      X_offset_angle:
+        type: "integer"
+      Y_offset_angle:
+        type: "integer"
+    example:
+      beam_id: 1
+      X_offset_angle: -90
+      Y_offset_angle: 90
