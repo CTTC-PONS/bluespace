@@ -1,117 +1,59 @@
 {
   "swagger": "2.0",
   "info": {
-    "description": "AROF Configuration API",
+    "description": "OBFN Configuration API",
     "version": "1.0.0",
-    "title": "AROF API"
+    "title": "OBFN API"
   },
-  "host": "localhost:5001",
+  "host": "localhost:5002",
   "basePath": "/api",
   "schemes": [
     "http"
   ],
   "paths": {
-    "/arof/{arof_id}": {
+    "/obfn": {
       "post": {
-        "summary": "Create configuration by ID",
-        "description": "Create operation of resource: laser",
-        "operationId": "create_configuration_by_id",
+        "summary": "Create configuration",
+        "description": "Create operations of resource: beam",
+        "operationId": "create_configuration",
+        "consumes": [
+          "application/json"
+        ],
         "produces": [
           "application/json"
         ],
         "parameters": [
           {
-            "name": "arof_id",
-            "in": "path",
-            "description": "arof id",
+            "name": "body",
+            "in": "body",
+            "description": "configuration parameters",
             "required": true,
-            "type": "integer"
-          },
-          {
-            "name": "enable",
-            "in": "query",
-            "description": "enable or disable the laser",
-            "required": false,
-            "type": "boolean"
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/Operation"
+              }
+            }
           }
         ],
         "responses": {
           "200": {
             "description": "Successful operation",
             "schema": {
-              "$ref": "#/definitions/Operation"
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/Operation"
+              }
             }
           },
           "400": {
-            "description": "Invalid ID supplied"
+            "description": "Invalid parameters supplied"
           }
         }
       },
-      "put": {
-        "summary": "Update configuration by ID",
-        "description": "Update operation of resource: laser",
-        "operationId": "update_arof_by_id",
-        "produces": [
-          "application/json"
-        ],
-        "parameters": [
-          {
-            "name": "arof_id",
-            "in": "path",
-            "description": "arof id",
-            "required": true,
-            "type": "integer"
-          },
-          {
-            "name": "enable",
-            "in": "query",
-            "description": "enable or disable the laser",
-            "required": false,
-            "type": "boolean"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Successful operation",
-            "schema": {
-              "$ref": "#/definitions/Operation"
-            }
-          },
-          "400": {
-            "description": "Invalid ID supplied"
-          }
-        }
-      },
-      "delete": {
-        "summary": "Delete configuration by ID",
-        "description": "Delete operation of resource: laser",
-        "operationId": "delete_configuration_by_id",
-        "produces": [
-          "application/json"
-        ],
-        "parameters": [
-          {
-            "name": "arof_id",
-            "in": "path",
-            "description": "arof id",
-            "required": true,
-            "type": "integer"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Successful operation"
-          },
-          "400": {
-            "description": "Internal Error"
-          }
-        }
-      }
-    },
-    "/arof": {
       "get": {
         "summary": "Retrieve configuration",
-        "description": "Retrieve operation of resource: laser",
+        "description": "Retrieve operations of resource: beam",
         "operationId": "retrieve_configuration",
         "produces": [
           "application/json"
@@ -131,6 +73,67 @@
             "description": "Internal Error"
           }
         }
+      },
+      "delete": {
+        "summary": "Delete configuration",
+        "description": "Delete operations of resource: beam",
+        "operationId": "delete_configuration",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Successful operation"
+          },
+          "400": {
+            "description": "Internal Error"
+          }
+        }
+      }
+    },
+    "/obfn/{beam_id}": {
+      "put": {
+        "summary": "Update configuration by ID",
+        "description": "Update operation of resource: beam",
+        "operationId": "update_configuration_by_id",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "beam_id",
+            "in": "path",
+            "description": "beam id",
+            "required": true,
+            "type": "integer"
+          },
+          {
+            "name": "X_offset_angle",
+            "in": "query",
+            "description": "X Offset Angle (deg)",
+            "required": false,
+            "type": "integer"
+          },
+          {
+            "name": "Y_offset_angle",
+            "in": "query",
+            "description": "Y Offset Angle (deg)",
+            "required": false,
+            "type": "integer"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "schema": {
+              "$ref": "#/definitions/Operation"
+            }
+          },
+          "400": {
+            "description": "Invalid ID supplied"
+          }
+        }
       }
     }
   },
@@ -138,16 +141,20 @@
     "Operation": {
       "type": "object",
       "properties": {
-        "arof_id": {
+        "beam_id": {
           "type": "integer"
         },
-        "enable": {
-          "type": "boolean"
+        "X_offset_angle": {
+          "type": "integer"
+        },
+        "Y_offset_angle": {
+          "type": "integer"
         }
       },
       "example": {
-        "arof_id": 0,
-        "enable": true
+        "beam_id": 1,
+        "X_offset_angle": -90,
+        "Y_offset_angle": 90
       }
     }
   }
