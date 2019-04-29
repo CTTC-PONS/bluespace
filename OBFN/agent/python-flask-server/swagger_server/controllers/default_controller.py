@@ -30,8 +30,8 @@ def delete_configuration():  # noqa: E501
 
     :rtype: None
     """
-    operations = list()
-    return operations
+    database.operations = list()
+    return database.operations
 
 
 def retrieve_configuration():  # noqa: E501

@@ -23,7 +23,7 @@ def post(host, operations):
     :type operations: list
     :return: list of operations
     """
-    request = requests.post('http://%s:5002/api/arof' % host, headers=headers, params=operations)
+    request = requests.post('http://%s:5002/api/obfn' % host, headers=headers, json=operations)
     return request.json()
 
 
@@ -41,8 +41,8 @@ def put(host, id, x, y):
     :type y: int
     :return: operation modified
     """
-    payload = {'x_offset_angle': x, 'y_offset_angle': y}
-    request = requests.put('http://%s:5002/api/arof/%s' % (host, id), headers=headers, params=payload)
+    payload = {'X_offset_angle': x, 'Y_offset_angle': y}
+    request = requests.put('http://%s:5002/api/obfn/%s' % (host, id), headers=headers, params=payload)
     return request.json()
 
 
@@ -53,7 +53,7 @@ def delete(host):
     :param host: ip address from REST API agent
     :type host: str
     """
-    request = requests.delete('http://%s:5002/api/obfn/%s' % host, headers=headers)
+    request = requests.delete('http://%s:5002/api/obfn' % host, headers=headers)
     # return request
 
 
