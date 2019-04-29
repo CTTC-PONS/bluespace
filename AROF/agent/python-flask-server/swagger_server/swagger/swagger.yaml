@@ -105,5 +105,5 @@ definitions:
       enable:
         type: "boolean"
     example:
-      arof_id: 0
+      arof_id: 1
       enable: true

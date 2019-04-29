@@ -146,7 +146,7 @@
         }
       },
       "example": {
-        "arof_id": 1,
+        "arof_id": 0,
         "enable": true
       }
     }
