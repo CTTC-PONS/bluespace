@@ -1,9 +1,5 @@
 import requests
 
-host_1 = "10.1.7.65"
-host_2 = "10.1.7.67"
-headers = {"Content-Type": "application/json"}
-
 
 def get(host):
     """
@@ -64,37 +60,36 @@ def delete(host, id):
 
 
 if __name__ == '__main__':
+    host = "10.1.7.65"
+    headers = {"Content-Type": "application/json"}
+
     print("ENSURE LASERS OFF")
     status = False
-    print(post(host_1, 1, status))
-    print(post(host_1, 2, status))
-    print(post(host_2, 3, status))
-    print(post(host_2, 4, status))
-    print("ENABLE LASERS AROF AGENT 1 ON")
+    print(post(host, 1, status))
+    print(post(host, 2, status))
+    print(post(host, 3, status))
+    print(post(host, 4, status))
+
+    print("ENABLE LASERS")
     status = True
-    print(put(host_1, 1, status))
-    print(put(host_1, 2, status))
-    print("ENABLE LASERS AROF AGENT 2 ON")
-    print(put(host_2, 3, status))
-    print(put(host_2, 4, status))
-    print("GET OPERATIONS ON AROF AGENT 1")
-    print(get(host_1))
-    print("GET OPERATIONS ON AROF AGENT 2")
-    print(get(host_2))
-    print("DISABLE LASERS AROF AGENT 1")
+    print(put(host, 1, status))
+    print(put(host, 2, status))
+    print(put(host, 3, status))
+    print(put(host, 4, status))
+
+    print("GET OPERATIONS on LASERS")
+    print(get(host))
+
+    print("DISABLE LASERS 1 AND 2")
     status = False
-    print(put(host_1, 1, status))
-    print(put(host_1, 2, status))
-    print("DISABLE LASERS AROF AGENT 2")
-    print(put(host_2, 3, status))
-    print(put(host_2, 4, status))
-    print("GET OPERATIONS ON AROF AGENT 1")
-    print(get(host_1))
-    print("GET OPERATIONS ON AROF AGENT 2")
-    print(get(host_2))
-    print("DELETE OPERATIONS ON AROF AGENT 1")
-    print(delete(host_1, 1))
-    print(delete(host_1, 2))
-    print("DELETE OPERATIONS ON AROF AGENT 2")
-    print(delete(host_2, 2))
-    print(delete(host_2, 3))
+    print(put(host, 1, status))
+    print(put(host, 2, status))
+
+    print("GET OPERATIONS ON LASERS")
+    print(get(host))
+
+    print("DISABLE LASERS")
+    print(delete(host, 1))
+    print(delete(host, 2))
+    print(delete(host, 3))
+    print(delete(host, 4))
