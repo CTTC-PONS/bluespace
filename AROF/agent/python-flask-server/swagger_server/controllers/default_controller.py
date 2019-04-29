@@ -42,7 +42,7 @@ def retrieve_configuration():  # noqa: E501
 
     :rtype: List[Operation]
     """
-    return sorted(database.operations)
+    return database.operations
 
 
 def update_arof_by_id(arof_id, enable=None):  # noqa: E501
