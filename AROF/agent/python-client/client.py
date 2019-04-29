@@ -38,6 +38,7 @@ def put(host, id, status):
     :param id: laser id
     :type id: int
     :param status: if True laser is enable, disable otherwise
+    :type status: bool
     :return: operation modified
     """
     payload = {'enable': status}
