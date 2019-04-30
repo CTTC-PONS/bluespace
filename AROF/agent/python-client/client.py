@@ -60,7 +60,7 @@ def delete(host, id):
 
 
 if __name__ == '__main__':
-    host = "10.1.7.65"
+    host = "localhost"
     headers = {"Content-Type": "application/json"}
 
     print("ENSURE LASERS OFF")
