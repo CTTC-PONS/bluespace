@@ -58,7 +58,7 @@ def delete(host):
 
 
 if __name__ == '__main__':
-    host = "10.1.7.64"
+    host = "localhost"
     headers = {"Content-Type": "application/json"}
     operations = [
         {

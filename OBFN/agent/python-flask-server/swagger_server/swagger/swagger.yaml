@@ -4,7 +4,7 @@ info:
   description: "OBFN Configuration API"
   version: "1.0.0"
   title: "OBFN API"
-host: "10.1.7.64:5002"
+host: "localhost:5002"
 basePath: "/api"
 schemes:
 - "http"
