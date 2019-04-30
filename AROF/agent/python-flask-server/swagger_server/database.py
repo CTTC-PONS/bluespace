@@ -1,12 +1,6 @@
-import sys
-
 from swagger_server.models.operation import Operation
-sys.path.append('/root/agent-bvt/')
-
-from lib.laser.laser import Laser
 
 operations = list()
-laser = Laser('10.1.1.7', '11')
 
 
 def create_operation(arof_id, enable):
@@ -22,7 +16,6 @@ def create_operation(arof_id, enable):
     """
     op = Operation(arof_id, enable)
     if op not in operations:
-        # laser.enable(arof_id, enable)
         operations.append(op)
     return op
 
@@ -40,7 +33,6 @@ def update_operation(arof_id, enable):
     """
     for item in operations:
         if item.arof_id == arof_id:
-            # laser.enable(arof_id, enable)
             item.arof_id = arof_id
             item.enable = enable
             return item
@@ -57,5 +49,4 @@ def delete_operation(arof_id):
     """
     for item in operations:
         if item.arof_id == arof_id:
-            # laser.enable(arof_id, False)
             operations.remove(item)
