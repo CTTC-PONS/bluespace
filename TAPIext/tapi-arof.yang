@@ -1,0 +1,170 @@
+module tapi-arof {
+    namespace "urn:onf:otcc:yang:tapi-arof";
+    prefix tapi-arof;
+    import tapi-common {
+        prefix tapi-common;
+    }
+    import tapi-connectivity {
+        prefix tapi-connectivity;
+    }
+    import tapi-topology {
+        prefix tapi-topology;
+    }
+    organization "H2020 BlueSPACE";
+    contact "";
+    description "
+        This module contains TAPI AROF Model definitions.
+        ";
+    revision 2018-12-10 {
+        description "Based on ONF Transport API version 2.1.1.
+                   Changes included in this TAPI release (v2.1.1)";
+    }
+    
+       
+    augment "/tapi-common:context/tapi-common:service-interface-point" {
+        container arof-service-interface-point-spec {
+            uses arof-service-interface-point-spec;
+            description "none";
+        }
+        description "none";
+    }
+
+    augment "/tapi-common:context/tapi-topology:topology-context/tapi-topology:topology/tapi-topology:node/tapi-topology:owned-node-edge-point/tapi-connectivity:cep-list/tapi-connectivity:connection-end-point" {
+        container arof-connection-end-point-spec {
+            uses arof-connection-end-point-spec;
+            description "none";
+        }
+        description "none";
+    }
+    
+   
+    
+   /**************************
+    * package object-classes
+    **************************/
+    grouping arof-connection-end-point-spec {
+        container media-channel {
+            config false;
+            uses arof-properties-pac;
+            description "none";
+        }
+        leaf laser-status {
+            type boolean;
+            description "";
+        }
+        description "none";
+    }
+
+    grouping arof-properties-pac {
+        container occupied-spectrum {
+            config false;
+            uses spectrum-band;
+            description "none";
+        }
+    }
+
+    grouping arof-service-interface-point-spec {
+        container arof-pool {
+            config false;
+            leaf laser_enable {
+                type boolean;
+            }
+            description "none";
+        }
+        
+        description "none";
+    }
+
+ 
+    
+
+   /**************************
+    * package type-definitions
+    **************************/
+    identity PHOTONIC_LAYER_QUALIFIER_AROF {
+        base tapi-common:LAYER_PROTOCOL_QUALIFIER;
+        description "none";
+    }
+    
+   
+    typedef grid-type {
+        type enumeration {
+            enum DWDM {
+                description "Fixed frequency grid in C & L bands as specified in ITU-T G.694.1
+                    ";
+            }
+            enum CWDM {
+                description "Fixed frequency grid as specified in ITU-T G.694.2";
+            }
+            enum FLEX {
+                description "Flexible frequency grid as specified in ITU-T G.694.1. In this case,
+                    - the allowed frequency slots have a nominal central frequency (in THz) defined by:
+                    193.1 + n × 0.00625 where n is a positive or negative integer including 0 and 0.00625 is the nominal central frequency granularity in THz
+                    - and a slot width defined by:
+                    12.5 × m where m is a positive integer and 12.5 is the slot width granularity in GHz.
+                    Any combination of frequency slots is allowed as long as no two frequency slots overlap.";
+            }
+            enum GRIDLESS {
+                description "none";
+            }
+            enum UNSPECIFIED {
+                description "Unspecified/proprietary frequency grid";
+            }
+        }
+        description "The frequency grid standard that specify reference set of frequencies used to denote allowed nominal central frequencies that may be used for defining applications.";
+    }
+    typedef adjustment-granularity {
+        type enumeration {
+            enum G_100GHZ {
+                description "100000 MHz";
+            }
+            enum G_50GHZ {
+                description "50000 MHz";
+            }
+            enum G_25GHZ {
+                description "25000 MHz";
+            }
+            enum G_12_5GHZ {
+                description "12500 MHz";
+            }
+            enum G_6_25GHZ {
+                description "6250 MHz";
+            }
+            enum G_3_125GHZ {
+                description "3125 MHz";
+            }
+            enum UNCONSTRAINED {
+                description "none";
+            }
+        }
+        description "Adjustment granularity in Gigahertz. As per ITU-T G.694.1, it is used to calculate nominal central frequency";
+    }
+    grouping spectrum-band {
+        leaf upper-frequency {
+            type uint64;
+            description "The upper frequency bound of the media channel spectrum specified in MHz";
+        }
+        leaf lower-frequency {
+            type uint64;
+            description "The lower frequency bound of the media channel spectrum specified in MHz";
+        }
+        container frequency-constraint {
+            uses frequency-constraint;
+            description "none";
+        }
+        description "This data-type holds the spectrum information in termsof upper/lower frequency directly or optionally the information to determin this in terms of the nominal central frequency and spectral width for a FIXED grid (DWDM or CWDM) and FLEX grid type systems.";
+    }
+
+    grouping frequency-constraint {
+        leaf adjustment-granularity {
+            type adjustment-granularity;
+            description "Adjustment granularity in Gigahertz. As per ITU-T G.694.1, it is used to calculate nominal central frequency (in THz)";
+        }
+        leaf grid-type {
+            type grid-type;
+            description "Specifies the frequency grid standard used to determine the nominal central frequency and frequency slot width";
+        }
+        description "This data-type holds the frequency constraint information in terms of GridType ( FIXED grid (DWDM or CWDM) or FLEX grid) and AdjustmentGranularity.";
+    }   
+    
+}

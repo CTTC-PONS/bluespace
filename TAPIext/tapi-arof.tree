@@ -1,0 +1,16 @@
+
+module: tapi-arof
+  augment /tapi-common:context/tapi-common:service-interface-point:
+    +--rw arof-service-interface-point-spec
+       +--ro arof-pool
+          +--ro laser_enable?   boolean
+  augment /tapi-common:context/tapi-topology:topology-context/tapi-topology:topology/tapi-topology:node/tapi-topology:owned-node-edge-point/tapi-connectivity:cep-list/tapi-connectivity:connection-end-point:
+    +--ro arof-connection-end-point-spec
+       +--ro media-channel
+       |  +--ro occupied-spectrum
+       |     +--ro upper-frequency?        uint64
+       |     +--ro lower-frequency?        uint64
+       |     +--ro frequency-constraint
+       |        +--ro adjustment-granularity?   adjustment-granularity
+       |        +--ro grid-type?                grid-type
+       +--ro laser-status?    boolean
