@@ -2,7 +2,7 @@
   "swagger": "2.0",
   "info": {
     "description": "AROF Configuration API",
-    "version": "1.0.0",
+    "version": "0.0.1",
     "title": "AROF API"
   },
   "host": "localhost:5001",
