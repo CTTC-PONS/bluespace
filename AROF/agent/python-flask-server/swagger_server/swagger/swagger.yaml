@@ -82,7 +82,7 @@ paths:
     get:
       summary: "Retrieve configuration"
       description: "Retrieve operation of resource: laser"
-      operationId: "retrieve_configuration_by_id"
+      operationId: "retrieve_configuration"
       produces:
       - "application/json"
       parameters: []

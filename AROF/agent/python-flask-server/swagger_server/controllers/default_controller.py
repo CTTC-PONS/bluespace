@@ -32,7 +32,7 @@ def delete_configuration_by_id(arof_id):  # noqa: E501
     database.delete_operation(arof_id)
 
 
-def retrieve_configuration_by_id():  # noqa: E501
+def retrieve_configuration():  # noqa: E501
     """Retrieve configuration
 
     Retrieve operation of resource: laser # noqa: E501

@@ -14,15 +14,17 @@ def create_operation(arof_id, enable):
 
     :rtype: Operation
     """
-    op = Operation(arof_id, enable)
-    if op not in operations:
-        operations.append(op)
-    return op
+    if len(operations) != 0:
+        index = next((index for (index, op) in enumerate(operations) if op.arof_id == arof_id), None)
+        if index is None:
+            return add_operation(arof_id, enable)
+    else:
+        return add_operation(arof_id, enable)
 
 
-def update_operation(arof_id, enable):
+def add_operation(arof_id, enable):
     """
-    Update Operation by ID
+    Create and add operation
 
     :param arof_id: arof id
     :type arof_id: int
@@ -31,11 +33,28 @@ def update_operation(arof_id, enable):
 
     :rtype: Operation
     """
-    for item in operations:
-        if item.arof_id == arof_id:
-            item.arof_id = arof_id
-            item.enable = enable
-            return item
+    op = Operation(arof_id, enable)
+    operations.append(op)
+    return op    
+
+
+def update_operation(arof_id, enable):
+    """
+    Update operation by ID
+
+    :param arof_id: arof id
+    :type arof_id: int
+    :param enable: enable or disable the laser
+    :type enable: bool
+
+    :rtype: Operation
+    """
+    if len(operations) != 0:
+        for item in operations:
+            if item.arof_id == arof_id:
+                item.arof_id = arof_id
+                item.enable = enable
+                return item
 
 
 def delete_operation(arof_id):
@@ -44,9 +63,8 @@ def delete_operation(arof_id):
 
     :param arof_id: arof id
     :type arof_id: int
-
-    :rtype: None
     """
-    for item in operations:
-        if item.arof_id == arof_id:
-            operations.remove(item)
+    if len(operations) != 0:
+        for item in operations:
+            if item.arof_id == arof_id:
+                operations.remove(item)
