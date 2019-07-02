@@ -2,7 +2,7 @@
 swagger: "2.0"
 info:
   description: "AROF Configuration API"
-  version: "1.0.0"
+  version: "0.0.1"
   title: "AROF API"
 host: "localhost:5001"
 basePath: "/api"
@@ -38,7 +38,7 @@ paths:
     put:
       summary: "Update configuration by ID"
       description: "Update operation of resource: laser"
-      operationId: "update_arof_by_id"
+      operationId: "update_configuration_by_id"
       produces:
       - "application/json"
       parameters:
@@ -82,7 +82,7 @@ paths:
     get:
       summary: "Retrieve configuration"
       description: "Retrieve operation of resource: laser"
-      operationId: "retrieve_configuration"
+      operationId: "retrieve_configuration_by_id"
       produces:
       - "application/json"
       parameters: []
@@ -105,5 +105,5 @@ definitions:
       enable:
         type: "boolean"
     example:
-      arof_id: 1
+      arof_id: 0
       enable: true
