@@ -70,4 +70,3 @@ def delete_operation(arof_id):
         for op in operations:
             if op.arof_id == arof_id:
                 operations.remove(op)
-                return op

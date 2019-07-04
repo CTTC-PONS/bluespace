@@ -30,9 +30,8 @@ def delete_configuration_by_id(arof_id):  # noqa: E501
 
     :rtype: Operation
     """
-    op = database.delete_operation(arof_id)
+    database.delete_operation(arof_id)
     exec_config_app(arof_id, False)
-    return op
 
 
 def retrieve_configuration():  # noqa: E501
