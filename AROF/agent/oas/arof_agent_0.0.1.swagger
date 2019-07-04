@@ -50,7 +50,7 @@
       "put": {
         "summary": "Update configuration by ID",
         "description": "Update operation of resource: laser",
-        "operationId": "update_arof_by_id",
+        "operationId": "update_configuration_by_id",
         "produces": [
           "application/json"
         ],
@@ -146,7 +146,7 @@
         }
       },
       "example": {
-        "arof_id": 1,
+        "arof_id": 0,
         "enable": true
       }
     }
