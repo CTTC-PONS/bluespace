@@ -16,8 +16,7 @@ def create_configuration_by_id(arof_id, enable=False):  # noqa: E501
     :rtype: Operation
     """
     new_op = database.create_operation(arof_id, enable)
-    if new_op.enable is True:
-        exec_config_app(arof_id, enable)
+    exec_config_app(arof_id, enable)
     return new_op
 
 
@@ -28,8 +27,12 @@ def delete_configuration_by_id(arof_id):  # noqa: E501
 
     :param arof_id: arof id
     :type arof_id: int
+
+    :rtype: Operation
     """
-    database.delete_operation(arof_id)
+    op = database.delete_operation(arof_id)
+    exec_config_app(arof_id, False)
+    return op
 
 
 def retrieve_configuration():  # noqa: E501
@@ -55,8 +58,7 @@ def update_configuration_by_id(arof_id, enable=False):  # noqa: E501
     :rtype: Operation
     """
     op = database.update_operation(arof_id, enable)
-    if op.enable is True:
-        exec_config_app(arof_id, enable)
+    exec_config_app(arof_id, enable)
     return op
 
 
