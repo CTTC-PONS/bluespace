@@ -68,6 +68,7 @@ if __name__ == '__main__':
     print(post(host, 1, status))
     print(post(host, 2, status))
     print(post(host, 3, status))
+    # print(post(host, 3, True))
 
     print("ENABLE LASERS")
     status = True
@@ -81,7 +82,7 @@ if __name__ == '__main__':
 
     print("DISABLE LASERS 1 AND 2")
     status = False
-    print(put(host, 0, status))
+    print(put(host, 1, status))
     print(put(host, 2, status))
 
     print("GET OPERATIONS ON LASERS")
@@ -92,4 +93,6 @@ if __name__ == '__main__':
     delete(host, 1)
     delete(host, 2)
     delete(host, 3)
+
+    print("GET OPERATIONS ON LASERS")
     print(get(host))
