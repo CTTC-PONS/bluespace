@@ -97,18 +97,25 @@
             "type": "integer"
           },
           {
+            "name": "wavelength",
+            "in": "path",
+            "description": "wavelength",
+            "required": false,
+            "type": "number"
+          },
+          {
             "name": "X_offset_angle",
             "in": "query",
             "description": "X Offset Angle (deg)",
-            "required": false,
-            "type": "integer"
+            "required": true,
+            "type": "number"
           },
           {
             "name": "Y_offset_angle",
             "in": "query",
             "description": "Y Offset Angle (deg)",
-            "required": false,
-            "type": "integer"
+            "required": true,
+            "type": "number"
           }
         ],
         "responses": {
