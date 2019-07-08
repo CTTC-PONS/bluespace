@@ -2,7 +2,7 @@
   "swagger": "2.0",
   "info": {
     "description": "OBFN Configuration API",
-    "version": "1.0.0",
+    "version": "0.0.1",
     "title": "OBFN API"
   },
   "host": "localhost:5002",
@@ -152,7 +152,7 @@
         }
       },
       "example": {
-        "beam_id": 1,
+        "beam_id": 0,
         "X_offset_angle": -90,
         "Y_offset_angle": 90
       }
