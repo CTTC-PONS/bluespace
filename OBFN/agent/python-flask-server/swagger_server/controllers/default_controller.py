@@ -66,21 +66,21 @@ def update_configuration_by_id(beam_id, X_offset_angle=None, Y_offset_angle=None
     return 'do some magic!'
 
 
-def exec_config_app(wavelength, beam_id, beam_x_offset_angle, beam_y_offset_angle):
-    """Execute configuration application
+def update_configuration_by_id(beam_id, X_offset_angle, Y_offset_angle, wavelength=None):  # noqa: E501
+    """Update configuration by ID
 
-    Call application that is responsible to configure the actual OBFN HW
+    Update operation of resource: beams # noqa: E501
 
-    :param wavelength: reference wavelength for calculation of beam pij, phij (j in [0,15]) parameters
-    :type wavelength: float
     :param beam_id: beam id
     :type beam_id: int
-    :param beam_x_offset_angle: x offset angle for beam beam_id
-    :type  beam_x_offset_angle: float
-    :param beam_y_offset_angle: y offset angle for beam beam_id
-    :type  beam_y_offset_angle: float
+    :param X_offset_angle: X Offset Angle (deg)
+    :type X_offset_angle: 
+    :param Y_offset_angle: Y Offset Angle (deg)
+    :type Y_offset_angle: 
+    :param wavelength: wavelength
+    :type wavelength: 
 
-    :rtype:
+    :rtype: Operation
     """
     call_arg_list = ["swagger_server/obfn-conf/obfn-conf", "-v", "-w", "{:f}".format(wavelength), "-i",
                      "{:d}".format(beam_id), "-x",

@@ -73,7 +73,7 @@ paths:
         required: true
         type: "integer"
       - name: "wavelength"
-        in: "path"
+        in: "query"
         description: "wavelength"
         required: false
         type: "number"
