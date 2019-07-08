@@ -21,8 +21,8 @@ def create_configuration(new_operations=None):  # noqa: E501
     if connexion.request.is_json:
         new_operations = Operations.from_dict(connexion.request.get_json())  # noqa: E501
         database.create_operations(new_operations.operations)
-        for nop in new_operations:
-            exec_config_app(nop.wavelength, nop.beam_id, nop.beam_x_offset_angle, nop.beam_y_offset_angle)
+        for nop in new_operations.operations:
+            exec_config_app(nop.wavelength, nop.beam_id, nop.x_offset_angle, nop.y_offset_angle)
 
     return database.operations_list
 
