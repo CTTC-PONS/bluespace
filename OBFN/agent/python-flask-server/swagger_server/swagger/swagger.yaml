@@ -12,7 +12,7 @@ paths:
   /obfn:
     get:
       summary: "Retrieve configuration"
-      description: "Retrieve operations of resource: beam"
+      description: "Retrieve operations of resource: beams"
       operationId: "retrieve_configuration"
       produces:
       - "application/json"
@@ -21,18 +21,14 @@ paths:
         200:
           description: "Successful operation"
           schema:
-            type: "array"
-            items:
-              $ref: "#/definitions/Operation"
+            $ref: "#/definitions/Operations"
         400:
           description: "Internal Error"
       x-swagger-router-controller: "swagger_server.controllers.default_controller"
     post:
       summary: "Create configuration"
-      description: "Create operations of resource: beam"
+      description: "Create operations of resource: beams"
       operationId: "create_configuration"
-      consumes:
-      - "application/json"
       produces:
       - "application/json"
       parameters:
@@ -41,22 +37,18 @@ paths:
         description: "configuration parameters"
         required: true
         schema:
-          type: "array"
-          items:
-            $ref: "#/definitions/Operation"
+          $ref: "#/definitions/Operations"
       responses:
         200:
           description: "Successful operation"
           schema:
-            type: "array"
-            items:
-              $ref: "#/definitions/Operation"
+            $ref: "#/definitions/Operations"
         400:
           description: "Invalid parameters supplied"
       x-swagger-router-controller: "swagger_server.controllers.default_controller"
     delete:
       summary: "Delete configuration"
-      description: "Delete operations of resource: beam"
+      description: "Delete operations of resource: beams"
       operationId: "delete_configuration"
       produces:
       - "application/json"
@@ -70,7 +62,7 @@ paths:
   /obfn/{beam_id}:
     put:
       summary: "Update configuration by ID"
-      description: "Update operation of resource: beam"
+      description: "Update operation of resource: beams"
       operationId: "update_configuration_by_id"
       produces:
       - "application/json"
@@ -99,8 +91,22 @@ paths:
           description: "Invalid ID supplied"
       x-swagger-router-controller: "swagger_server.controllers.default_controller"
 definitions:
-  Operation:
+  Operations:
     type: "object"
+    properties:
+      operations:
+        type: "array"
+        items:
+          $ref: "#/definitions/Operation"
+    example:
+      operations:
+      - beam_id: 0
+        X_offset_angle: -90
+        Y_offset_angle: 90
+      - beam_id: 1
+        X_offset_angle: -90
+        Y_offset_angle: 90
+  Operation:
     properties:
       beam_id:
         type: "integer"
