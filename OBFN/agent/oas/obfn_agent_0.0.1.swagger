@@ -30,15 +30,12 @@
           "400": {
             "description": "Internal Error"
           }
-        }
+        },
       },
       "post": {
         "summary": "Create configuration",
         "description": "Create operations of resource: beams",
         "operationId": "create_configuration",
-        "consumes": [
-          "application/json"
-        ],
         "produces": [
           "application/json"
         ],
@@ -63,7 +60,7 @@
           "400": {
             "description": "Invalid parameters supplied"
           }
-        }
+        },
       },
       "delete": {
         "summary": "Delete configuration",
@@ -80,7 +77,7 @@
           "400": {
             "description": "Internal Error"
           }
-        }
+        },
       }
     },
     "/obfn/{beam_id}": {
@@ -124,7 +121,7 @@
           "400": {
             "description": "Invalid ID supplied"
           }
-        }
+        },
       }
     }
   },
@@ -143,11 +140,13 @@
         "operations": [
           {
             "beam_id": 0,
+            "wavelength": 1550.02,
             "X_offset_angle": -90,
             "Y_offset_angle": 90
           },
           {
             "beam_id": 1,
+            "wavelength": 1550.02,
             "X_offset_angle": -90,
             "Y_offset_angle": 90
           }
@@ -156,18 +155,22 @@
     },
     "Operation": {
       "properties": {
+        "wavelength": {
+          "type": "number"
+        },
         "beam_id": {
           "type": "integer"
         },
         "X_offset_angle": {
-          "type": "integer"
+          "type": "number"
         },
         "Y_offset_angle": {
-          "type": "integer"
+          "type": "number"
         }
       },
       "example": {
         "beam_id": 0,
+        "wavelength": 1550.02,
         "X_offset_angle": -90,
         "Y_offset_angle": 90
       }

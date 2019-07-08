@@ -15,28 +15,33 @@ class Operation(Model):
     Do not edit the class manually.
     """
 
-    def __init__(self, beam_id: int=None, x_offset_angle: int=None, y_offset_angle: int=None):  # noqa: E501
+    def __init__(self, wavelength: float=None, beam_id: int=None, x_offset_angle: float=None, y_offset_angle: float=None):  # noqa: E501
         """Operation - a model defined in Swagger
 
+        :param wavelength: The wavelength of this Operation.  # noqa: E501
+        :type wavelength: float
         :param beam_id: The beam_id of this Operation.  # noqa: E501
         :type beam_id: int
         :param x_offset_angle: The x_offset_angle of this Operation.  # noqa: E501
-        :type x_offset_angle: int
+        :type x_offset_angle: float
         :param y_offset_angle: The y_offset_angle of this Operation.  # noqa: E501
-        :type y_offset_angle: int
+        :type y_offset_angle: float
         """
         self.swagger_types = {
+            'wavelength': float,
             'beam_id': int,
-            'x_offset_angle': int,
-            'y_offset_angle': int
+            'x_offset_angle': float,
+            'y_offset_angle': float
         }
 
         self.attribute_map = {
+            'wavelength': 'wavelength',
             'beam_id': 'beam_id',
             'x_offset_angle': 'X_offset_angle',
             'y_offset_angle': 'Y_offset_angle'
         }
 
+        self._wavelength = wavelength
         self._beam_id = beam_id
         self._x_offset_angle = x_offset_angle
         self._y_offset_angle = y_offset_angle
@@ -51,6 +56,27 @@ class Operation(Model):
         :rtype: Operation
         """
         return util.deserialize_model(dikt, cls)
+
+    @property
+    def wavelength(self) -> float:
+        """Gets the wavelength of this Operation.
+
+
+        :return: The wavelength of this Operation.
+        :rtype: float
+        """
+        return self._wavelength
+
+    @wavelength.setter
+    def wavelength(self, wavelength: float):
+        """Sets the wavelength of this Operation.
+
+
+        :param wavelength: The wavelength of this Operation.
+        :type wavelength: float
+        """
+
+        self._wavelength = wavelength
 
     @property
     def beam_id(self) -> int:
@@ -74,43 +100,43 @@ class Operation(Model):
         self._beam_id = beam_id
 
     @property
-    def x_offset_angle(self) -> int:
+    def x_offset_angle(self) -> float:
         """Gets the x_offset_angle of this Operation.
 
 
         :return: The x_offset_angle of this Operation.
-        :rtype: int
+        :rtype: float
         """
         return self._x_offset_angle
 
     @x_offset_angle.setter
-    def x_offset_angle(self, x_offset_angle: int):
+    def x_offset_angle(self, x_offset_angle: float):
         """Sets the x_offset_angle of this Operation.
 
 
         :param x_offset_angle: The x_offset_angle of this Operation.
-        :type x_offset_angle: int
+        :type x_offset_angle: float
         """
 
         self._x_offset_angle = x_offset_angle
 
     @property
-    def y_offset_angle(self) -> int:
+    def y_offset_angle(self) -> float:
         """Gets the y_offset_angle of this Operation.
 
 
         :return: The y_offset_angle of this Operation.
-        :rtype: int
+        :rtype: float
         """
         return self._y_offset_angle
 
     @y_offset_angle.setter
-    def y_offset_angle(self, y_offset_angle: int):
+    def y_offset_angle(self, y_offset_angle: float):
         """Sets the y_offset_angle of this Operation.
 
 
         :param y_offset_angle: The y_offset_angle of this Operation.
-        :type y_offset_angle: int
+        :type y_offset_angle: float
         """
 
         self._y_offset_angle = y_offset_angle
