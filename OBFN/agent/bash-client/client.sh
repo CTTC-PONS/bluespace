@@ -4,7 +4,7 @@ header1="Content-Type:application/json"
 header2="Accept:application/json"
 
 function exec_post {
-        curl -X POST --header ${header1} --header ${header2} -d '[{"X_offset_angle": -90, "Y_offset_angle": 90, "beam_id": 1 }, {"X_offset_angle": -90, "Y_offset_angle": 90, "beam_id": 2 }, {"X_offset_angle": -90, "Y_offset_angle": 90, "beam_id": 3}, {"X_offset_angle": -90, "Y_offset_angle": 90, "beam_id": 4}]' 'http://localhost:5002/api/obfn'
+        curl -X POST --header ${header1} --header ${header2} -d '[{"X_offset_angle": -90, "Y_offset_angle": 90, "beam_id": 0 }, {"X_offset_angle": -90, "Y_offset_angle": 90, "beam_id": 1 }, {"X_offset_angle": -90, "Y_offset_angle": 90, "beam_id": 2}, {"X_offset_angle": -90, "Y_offset_angle": 90, "beam_id": 3}]' 'http://localhost:5002/api/obfn'
 }
 
 function exec_get {

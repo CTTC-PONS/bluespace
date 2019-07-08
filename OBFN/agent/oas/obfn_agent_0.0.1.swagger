@@ -29,10 +29,7 @@
             "description": "configuration parameters",
             "required": true,
             "schema": {
-              "type": "array",
-              "items": {
-                "$ref": "#/definitions/Operation"
-              }
+              "$ref": "#/definitions/Operation"
             }
           }
         ],
@@ -40,10 +37,7 @@
           "200": {
             "description": "Successful operation",
             "schema": {
-              "type": "array",
-              "items": {
-                "$ref": "#/definitions/Operation"
-              }
+              "$ref": "#/definitions/Operation"
             }
           },
           "400": {
@@ -63,10 +57,7 @@
           "200": {
             "description": "Successful operation",
             "schema": {
-              "type": "array",
-              "items": {
-                "$ref": "#/definitions/Operation"
-              }
+              "$ref": "#/definitions/Operation"
             }
           },
           "400": {
@@ -141,20 +132,27 @@
     "Operation": {
       "type": "object",
       "properties": {
-        "beam_id": {
-          "type": "integer"
-        },
-        "X_offset_angle": {
-          "type": "integer"
-        },
-        "Y_offset_angle": {
-          "type": "integer"
+        "operations": {
+          "type": "array",
+          "items": {
+            "properties": {
+              "beam_id": {
+                "type": "integer"
+              },
+              "X_offset_angle": {
+                "type": "integer"
+              },
+              "Y_offset_angle": {
+                "type": "integer"
+              }
+            },
+            "example": {
+              "beam_id": 0,
+              "X_offset_angle": -90,
+              "Y_offset_angle": 90
+            }
+          }
         }
-      },
-      "example": {
-        "beam_id": 0,
-        "X_offset_angle": -90,
-        "Y_offset_angle": 90
       }
     }
   }

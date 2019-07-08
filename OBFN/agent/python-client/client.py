@@ -21,7 +21,7 @@ def post(host, operations):
     :type host: str
     :param operations: operations to be configured on the beams
     :type operations: list
-    :return: list of operations
+    :return: list of new operations
     """
     request = requests.post('http://%s:5002/api/obfn' % host, headers=headers, json=operations)
     return request.json()
@@ -29,12 +29,12 @@ def post(host, operations):
 
 def put(host, id, x, y):
     """
-    Modify operation on beam specified by ID
+    Modify operation on a beam specified by ID
 
     :param host: ip address from REST API agent
     :type host: str
-    :param beam_id: beam id
-    :type beam_id: int
+    :param id: beam id
+    :type id: int
     :param x: X Offset Angle (deg)
     :type x: int
     :param y: Y Offset Angle (deg)
@@ -53,8 +53,7 @@ def delete(host):
     :param host: ip address from REST API agent
     :type host: str
     """
-    request = requests.delete('http://%s:5002/api/obfn' % host, headers=headers)
-    # return request
+    requests.delete('http://%s:5002/api/obfn' % host, headers=headers)
 
 
 if __name__ == '__main__':
@@ -97,4 +96,6 @@ if __name__ == '__main__':
 
     print("DELETE")
     delete(host)
+
+    print("GET")
     print(get(host))
