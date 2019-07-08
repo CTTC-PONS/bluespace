@@ -20,7 +20,7 @@ def post(host, operations):
     :param host: ip address from REST API agent
     :type host: str
     :param operations: operations to be configured on the beams
-    :type operations: list
+    :type operations: dict
     :return: list of new operations
     """
     request = requests.post('http://%s:5002/api/obfn' % host, headers=headers, json=operations)
@@ -57,45 +57,52 @@ def delete(host):
 
 
 if __name__ == '__main__':
-    host = "10.1.7.65"
+    host = "10.1.7.64"
     headers = {"Content-Type": "application/json"}
-    operations = [
-        {
-            "X_offset_angle": -90,
-            "Y_offset_angle": 90,
-            "beam_id": 1
-        },
-        {
-            "X_offset_angle": -90,
-            "Y_offset_angle": 90,
-            "beam_id": 2
-        },
-        {
-            "X_offset_angle": -90,
-            "Y_offset_angle": 90,
-            "beam_id": 3
-        },
-        {
-            "X_offset_angle": -90,
-            "Y_offset_angle": 90,
-            "beam_id": 4
-        }
-    ]
+    dataset = {
+        "operations": [
+            {
+                "beam_id": 0,
+                "wavelength": 1550.02,
+                "X_offset_angle": -90,
+                "Y_offset_angle": 90,
+            },
+            {
+                "beam_id": 1,
+                "wavelength": 1550.02,
+                "X_offset_angle": -90,
+                "Y_offset_angle": 90,
+            },
+            {
+                "beam_id": 2,
+                "wavelength": 1550.02,
+                "X_offset_angle": -90,
+                "Y_offset_angle": 90,
+            },
+            {
+                "beam_id": 3,
+                "wavelength": 1550.02,
+                "X_offset_angle": -90,
+                "Y_offset_angle": 90,
+            }
+
+        ]
+    }
 
     print("POST")
-    print(post(host, operations))
+    print(post(host, dataset))
 
     print("GET")
     print(get(host))
 
-    print("MODIFY BEAM with beam_id = 1")
-    print(put(host, 1, -80, 80))
-
-    print("GET")
-    print(get(host))
-
-    print("DELETE")
-    delete(host)
-
-    print("GET")
-    print(get(host))
+    # print("MODIFY BEAM with beam_id = 1")
+    # print(put(host, 1, -80, 80))
+    #
+    # print("GET")
+    # print(get(host))
+    #
+    # print("DELETE")
+    # delete(host)
+    #
+    # print("GET")
+    # print(get(host))

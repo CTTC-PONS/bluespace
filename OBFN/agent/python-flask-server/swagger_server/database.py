@@ -13,14 +13,13 @@ def create_operations(new_operations):
     :return: list of operations
     :rtype: Operations
     """
-    if len(operations_list.operations) != 0: # if exists operations in operations_list
+    if len(operations_list.operations) != 0:  # if exists operations in operations_list
         for nop in new_operations:  # for each new operation
-            if not any(op.beam_id == nop.beam_id for op in operations_list.operations): # if not exists beam_id in operations of operations_list
-                operations_list.operations.append(nop)  # add new operation to oeprations_list
-
+            if not any(op.beam_id == nop.beam_id for op in
+                       operations_list.operations):  # if not exists beam_id in operations of operations_list
+                operations_list.operations.append(nop)  # append new operations to operations_list
     else:
-        operations_list.operations = new_operations
-
+        operations_list.operations = new_operations  # add new operations to operations_list
 
 # def update_operation(beam_id, X_offset_angle, Y_offset_angle):
 #     """
