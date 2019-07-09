@@ -63,29 +63,28 @@ if __name__ == '__main__':
         "operations": [
             {
                 "beam_id": 0,
-                "wavelength": 1550.02,
-                "X_offset_angle": -90,
-                "Y_offset_angle": 90,
+                "x_offset_angle": -90,
+                "y_offset_angle": 90,
+                "wavelength": 1553
             },
             {
                 "beam_id": 1,
-                "wavelength": 1550.02,
-                "X_offset_angle": -90,
-                "Y_offset_angle": 90,
+                "x_offset_angle": -90,
+                "y_offset_angle": 90,
+                "wavelength": 1553
             },
             {
                 "beam_id": 2,
-                "wavelength": 1550.02,
-                "X_offset_angle": -90,
-                "Y_offset_angle": 90,
+                "x_offset_angle": -90,
+                "y_offset_angle": 90,
+                "wavelength": 1553
             },
             {
                 "beam_id": 3,
-                "wavelength": 1550.02,
-                "X_offset_angle": -90,
-                "Y_offset_angle": 90,
+                "x_offset_angle": -90,
+                "y_offset_angle": 90,
+                "wavelength": 1553
             }
-
         ]
     }
 

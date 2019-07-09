@@ -14,7 +14,7 @@ def create_operations(new_operations):
     :rtype: list
     """
     actual_operations = list()
-    if len(operations_list.operations) != 0: 
+    if len(operations_list.operations) != 0:
         for nop in new_operations:  # for each new operation 
             if not any(op.beam_id == nop.beam_id for op in
                        operations_list.operations):  # if not exists new beam_id 
