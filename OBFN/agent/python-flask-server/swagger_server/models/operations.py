@@ -16,7 +16,7 @@ class Operations(Model):
     Do not edit the class manually.
     """
 
-    def __init__(self, operations: List[Operation]=[]):  # noqa: E501
+    def __init__(self, operations: List[Operation]=None):  # noqa: E501
         """Operations - a model defined in Swagger
 
         :param operations: The operations of this Operations.  # noqa: E501

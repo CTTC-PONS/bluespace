@@ -5,6 +5,7 @@ from __future__ import absolute_import
 from flask import json
 from six import BytesIO
 
+from swagger_server.models.operation import Operation  # noqa: E501
 from swagger_server.models.operations import Operations  # noqa: E501
 from swagger_server.test import BaseTestCase
 
@@ -53,8 +54,9 @@ class TestDefaultController(BaseTestCase):
 
         Update configuration by ID
         """
-        query_string = [('X_offset_angle', 56),
-                        ('Y_offset_angle', 56)]
+        query_string = [('x_offset_angle', 8.14),
+                        ('y_offset_angle', 8.14),
+                        ('wavelength', 8.14)]
         response = self.client.open(
             '/api/obfn/{beam_id}'.format(beam_id=56),
             method='PUT',
