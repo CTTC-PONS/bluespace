@@ -12,7 +12,7 @@ function exec_get {
 }
 
 function exec_put {
-        curl -X PUT --header ${header1} --header ${header2} 'http://localhost:5002/api/obfn/1?X_offset_angle=-80&Y_offset_angle=80'
+        curl -X PUT --header ${header1} --header ${header2} 'http://localhost:5002/api/obfn/1?X_offset_angle=-80&Y_offset_angle=80&wavelenght=1552'
 }
 
 function exec_delete {

@@ -1,20 +1,14 @@
-import connexion
-import six
-
 from subprocess import call
-from swagger_server.models.operation import Operation  # noqa: E501
-from swagger_server.models.operations import Operations  # noqa: E501
-from swagger_server import util
+
+import connexion
 from swagger_server import database
+from swagger_server.models.operations import Operations  # noqa: E501
 
 
-def create_configuration(new_operations=[]):  # noqa: E501
+def create_configuration():  # noqa: E501
     """Create configuration
 
     Create operations of resource: beams # noqa: E501
-
-    :param new_operations: operations
-    :type new_operations: dict | bytes
 
     :rtype: Operations
     """
@@ -22,7 +16,7 @@ def create_configuration(new_operations=[]):  # noqa: E501
         new_operations = Operations.from_dict(connexion.request.get_json())  # noqa: E501
         operations_to_configure_HW = database.create_operations(new_operations.operations)
         if len(operations_to_configure_HW) != 0:
-            for op in operations_to_configure_HW:   # for each new operation created
+            for op in operations_to_configure_HW:  # for each new operation created
                 exec_config_app(op.beam_id, op.x_offset_angle, op.y_offset_angle, op.wavelength)
 
     return database.operations_list
@@ -68,7 +62,7 @@ def update_configuration_by_id(beam_id, x_offset_angle, y_offset_angle, waveleng
     """
     new_operation = database.update_operation(beam_id, x_offset_angle, y_offset_angle, wavelength)
     exec_config_app(beam_id, x_offset_angle, y_offset_angle, wavelength)
-    
+
     return new_operation
 
 
@@ -88,6 +82,7 @@ def exec_config_app(beam_id, x_offset_angle, y_offset_angle, wavelength):
 
     :rtype:
     """
-    call_arg_list = ["swagger_server/obfn-conf/obfn-conf", "-v", "-w", "{:f}".format(wavelength), "-i", "{:d}".format(beam_id), "-x", "{:f}".format(x_offset_angle), "-y", "{:f}".format(y_offset_angle)]
+    call_arg_list = ["swagger_server/obfn-conf/obfn-conf", "-v", "-w", "{:f}".format(wavelength), "-i",
+                     "{:d}".format(beam_id), "-x", "{:f}".format(x_offset_angle), "-y", "{:f}".format(y_offset_angle)]
     # print (['CMD:', call_arg_list])
     return call(call_arg_list)

@@ -14,7 +14,7 @@ def create_operations(new_operations):
     :rtype: list
     """
     actual_operations = list()
-    if len(operations_list.operations) != 0: 
+    if len(operations_list.operations) != 0:
         for nop in new_operations:  # for each new operation 
             if not any(op.beam_id == nop.beam_id for op in
                        operations_list.operations):  # if not exists new beam_id 
@@ -31,7 +31,7 @@ def delete_operations():
     """
     Delete operations
     """
-    if len(operations_list.operations) != 0: 
+    if len(operations_list.operations) != 0:
         operations_list.operations = []
 
 
@@ -50,8 +50,8 @@ def update_operation(beam_id, x_offset_angle, y_offset_angle, wavelength):
 
     :return: operation modified
     :rtype: Operation
-    """  
-    if len(operations_list.operations) != 0:   
+    """
+    if len(operations_list.operations) != 0:
         index = next((index for (index, op) in enumerate(operations_list.operations) if op.beam_id == beam_id), None)
         # returns de index position if beam id exist in list of operations. None, otherwise
         if index is not None:  # if exists beam id

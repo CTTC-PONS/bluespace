@@ -114,7 +114,7 @@
             "name": "wavelength",
             "in": "query",
             "description": "wavelength",
-            "required": false,
+            "required": true,
             "type": "number"
           }
         ],

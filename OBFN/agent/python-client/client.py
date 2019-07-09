@@ -27,7 +27,7 @@ def post(host, operations):
     return request.json()
 
 
-def put(host, id, x, y):
+def put(host, id, x, y, w):
     """
     Modify operation on a beam specified by ID
 
@@ -36,12 +36,14 @@ def put(host, id, x, y):
     :param id: beam id
     :type id: int
     :param x: X Offset Angle (deg)
-    :type x: int
+    :type x: float
     :param y: Y Offset Angle (deg)
-    :type y: int
+    :type y: float
+    :param w: wavelength
+    :type w: float
     :return: operation modified
     """
-    payload = {'X_offset_angle': x, 'Y_offset_angle': y}
+    payload = {'x_offset_angle': x, 'y_offset_angle': y, 'wavelength': w}
     request = requests.put('http://%s:5002/api/obfn/%s' % (host, id), headers=headers, params=payload)
     return request.json()
 
@@ -94,14 +96,14 @@ if __name__ == '__main__':
     print("GET")
     print(get(host))
 
-    # print("MODIFY BEAM with beam_id = 1")
-    # print(put(host, 1, -80, 80))
-    #
-    # print("GET")
-    # print(get(host))
-    #
-    # print("DELETE")
-    # delete(host)
-    #
-    # print("GET")
-    # print(get(host))
+    print("MODIFY BEAM with beam_id = 1")
+    print(put(host, 1, -80, 80, 1552))
+
+    print("GET")
+    print(get(host))
+
+    print("DELETE")
+    delete(host)
+
+    print("GET")
+    print(get(host))
