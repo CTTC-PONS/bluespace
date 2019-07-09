@@ -50,7 +50,7 @@ def retrieve_configuration():  # noqa: E501
     return database.operations_list
 
 
-def update_configuration_by_id(beam_id, x_offset_angle, y_offset_angle, wavelength=None):  # noqa: E501
+def update_configuration_by_id(beam_id, x_offset_angle, y_offset_angle, wavelength):  # noqa: E501
     """Update configuration by ID
 
     Update operation of resource: beams # noqa: E501
@@ -66,7 +66,10 @@ def update_configuration_by_id(beam_id, x_offset_angle, y_offset_angle, waveleng
 
     :rtype: Operation
     """
-    return 'do some magic!'
+    new_operation = database.update_operation(beam_id, x_offset_angle, y_offset_angle, wavelength)
+    exec_config_app(beam_id, x_offset_angle, y_offset_angle, wavelength)
+    
+    return new_operation
 
 
 def exec_config_app(beam_id, x_offset_angle, y_offset_angle, wavelength):

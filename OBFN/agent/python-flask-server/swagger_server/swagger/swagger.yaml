@@ -4,7 +4,7 @@ info:
   description: "OBFN Configuration API"
   version: "0.0.1"
   title: "OBFN API"
-host: "localhost:5002"
+host: "10.1.7.64:5002"
 basePath: "/api"
 schemes:
 - "http"
@@ -85,7 +85,7 @@ paths:
       - name: "wavelength"
         in: "query"
         description: "wavelength"
-        required: false
+        required: true
         type: "number"
       responses:
         200:
