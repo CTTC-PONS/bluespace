@@ -30,7 +30,7 @@
           "400": {
             "description": "Internal Error"
           }
-        },
+        }
       },
       "post": {
         "summary": "Create configuration",
@@ -43,7 +43,7 @@
           {
             "in": "body",
             "name": "body",
-            "description": "configuration parameters",
+            "description": "operations",
             "required": true,
             "schema": {
               "$ref": "#/definitions/Operations"
@@ -60,7 +60,7 @@
           "400": {
             "description": "Invalid parameters supplied"
           }
-        },
+        }
       },
       "delete": {
         "summary": "Delete configuration",
@@ -77,7 +77,7 @@
           "400": {
             "description": "Internal Error"
           }
-        },
+        }
       }
     },
     "/obfn/{beam_id}": {
@@ -97,24 +97,24 @@
             "type": "integer"
           },
           {
-            "name": "wavelength",
-            "in": "path",
-            "description": "wavelength",
-            "required": false,
-            "type": "number"
-          },
-          {
-            "name": "X_offset_angle",
+            "name": "x_offset_angle",
             "in": "query",
             "description": "X Offset Angle (deg)",
             "required": true,
             "type": "number"
           },
           {
-            "name": "Y_offset_angle",
+            "name": "y_offset_angle",
             "in": "query",
             "description": "Y Offset Angle (deg)",
             "required": true,
+            "type": "number"
+          },
+          {
+            "name": "wavelength",
+            "in": "query",
+            "description": "wavelength",
+            "required": false,
             "type": "number"
           }
         ],
@@ -128,7 +128,7 @@
           "400": {
             "description": "Invalid ID supplied"
           }
-        },
+        }
       }
     }
   },
@@ -147,39 +147,39 @@
         "operations": [
           {
             "beam_id": 0,
-            "wavelength": 1550.02,
-            "X_offset_angle": -90,
-            "Y_offset_angle": 90
+            "x_offset_angle": -90,
+            "y_offset_angle": 90,
+            "wavelength": 1553
           },
           {
             "beam_id": 1,
-            "wavelength": 1550.02,
-            "X_offset_angle": -90,
-            "Y_offset_angle": 90
+            "x_offset_angle": -90,
+            "y_offset_angle": 90,
+            "wavelength": 1553
           }
         ]
       }
     },
     "Operation": {
       "properties": {
-        "wavelength": {
-          "type": "number"
-        },
         "beam_id": {
           "type": "integer"
         },
-        "X_offset_angle": {
+        "x_offset_angle": {
           "type": "number"
         },
-        "Y_offset_angle": {
+        "y_offset_angle": {
+          "type": "number"
+        },
+        "wavelength": {
           "type": "number"
         }
       },
       "example": {
         "beam_id": 0,
-        "wavelength": 1550.02,
-        "X_offset_angle": -90,
-        "Y_offset_angle": 90
+        "x_offset_angle": -90,
+        "y_offset_angle": 90,
+        "wavelength": 1553
       }
     }
   }
