@@ -51,12 +51,10 @@ def update_operation(arof_id, enable):
     :return: operation modified
     :rtype: Operation
     """
-    if len(operations) != 0:    # if exists operations
-        for op in operations:
-            if op.arof_id == arof_id:
-                op.arof_id = arof_id
-                op.enable = enable
-                return op
+    for op in operations:
+        op.arof_id = arof_id
+        op.enable = enable
+        return op
 
 
 def delete_operation(arof_id):
