@@ -67,23 +67,22 @@ if __name__ == '__main__':
     print(post(host, 0, status))
     print(post(host, 1, status))
     print(post(host, 2, status))
-    print(post(host, 3, status))
-    # print(post(host, 3, True))
+    # print(post(host, 3, status))
 
     print("ENABLE LASERS")
     status = True
     print(put(host, 0, status))
     print(put(host, 1, status))
     print(put(host, 2, status))
-    print(put(host, 3, status))
 
     print("GET OPERATIONS ON LASERS")
     print(get(host))
 
-    print("DISABLE LASERS 1 AND 2")
+    print("DISABLE LASERS 1 AND 2, AND ENABLE LASER 3")
     status = False
     print(put(host, 1, status))
     print(put(host, 2, status))
+    print(put(host, 3, True))
 
     print("GET OPERATIONS ON LASERS")
     print(get(host))
