@@ -55,7 +55,6 @@ def update_operation(arof_id, enable):
     index = next((index for (index, p) in enumerate(operations) if p.arof_id == arof_id), None)
     # returns the index position if arof id exist in list of operations. None, otherwise
     if index is not None:  # if arof id exists
-        operations[index].arof_id = arof_id
         operations[index].enable = enable
         return operations[index]
     else:
