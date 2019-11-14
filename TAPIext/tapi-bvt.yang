@@ -10,14 +10,17 @@ module tapi-bvt {
     import tapi-topology {
         prefix tapi-topology;
     }
+    import tapi-photonic-media {
+        prefix tapi-photonic-media;
+    }
     organization "H2020 BlueSPACE";
     contact "";
     description "
         This module contains TAPI bvt Model definitions.
         ";
     revision 2019-10-24 {
-        description "Based on ONF Transport API version 2.1.1.
-                   Changes included in this TAPI release (v2.1.1)";
+        description "Based on ONF Transport API version 2.1.2.
+                   Changes included in this TAPI release (v2.1.2)";
     }
     
        
@@ -29,7 +32,7 @@ module tapi-bvt {
         description "none";
     }
 
-    augment "/tapi-common:context/tapi-topology:topology-context/tapi-topology:topology/tapi-topology:node/tapi-topology:owned-node-edge-point/tapi-connectivity:cep-list/tapi-connectivity:connection-end-point" {
+    augment "/tapi-common:context/tapi-topology:topology-context/tapi-topology:topology/tapi-topology:node/tapi-topology:node-edge-point/tapi-connectivity:cep-list/tapi-connectivity:connection-end-point" {
         container bvt-connection-end-point-spec {
             uses bvt-connection-end-point-spec;
             description "none";
@@ -43,49 +46,48 @@ module tapi-bvt {
     * package object-classes
     **************************/
     grouping bvt-connection-end-point-spec {
-		container bvt-termination 
-			config false;
-			uses bvt-termination-pac;
-			description "Configured parameters of the BVT transceiver";
-		}	
-	}
+        container bvt-termination {
+            config false;
+            uses bvt-termination-pac;
+	    description "Configured parameters of the BVT transceiver";
+        }	
+    }
 	
-	grouping bvt-termination-pac {
-	    container selected-central-frequency {
+    grouping bvt-termination-pac {
+        container selected-central-frequency {
             config false;
             uses tapi-photonic-media:central-frequency;
             description "none";
         }
-		container selected-spectrum {
+	container selected-spectrum {
             config false;
             uses tapi-photonic-media:spectrum-band; 
             description "none";
         }
-		container selected-capacity {
+        container selected-capacity {
             config false;
             uses tapi-common:capacity;
         }	
     }
 
-
     grouping bvt-service-interface-point-spec {
-		container bvt-capability 
-			config false;
-			uses bvt-capability-pac;
-			description "Capabilities of the BVT transceiver";
-		}
-	}
-	
-	grouping bvt-capability-pac {
+        container bvt-capability {
+            config false;
+            uses bvt-capability-pac;
+            description "Capabilities of the BVT transceiver";
+        }
+    }
+
+    grouping bvt-capability-pac {
         container supported-capacity {
             container max-capacity {
-              uses tapi-common:capacity;
+                uses tapi-common:capacity;
             }
             container min-capacity {
-              uses tapi-common:capacity;
+                uses tapi-common:capacity;
             }
         }			
-	}	
+    }	
 
  
     

@@ -1,0 +1,32 @@
+
+module: tapi-bvt
+  augment /tapi-common:context/tapi-common:service-interface-point:
+    +--rw bvt-service-interface-point-spec
+       +--ro bvt-capability
+          +--ro supported-capacity
+             +--ro max-capacity
+             |  +--ro total-size
+             |     +--ro value?   uint64
+             |     +--ro unit?    capacity-unit
+             +--ro min-capacity
+                +--ro total-size
+                   +--ro value?   uint64
+                   +--ro unit?    capacity-unit
+  augment /tapi-common:context/tapi-topology:topology-context/tapi-topology:topology/tapi-topology:node/tapi-topology:node-edge-point/tapi-connectivity:cep-list/tapi-connectivity:connection-end-point:
+    +--ro bvt-connection-end-point-spec
+       +--ro bvt-termination
+          +--ro selected-central-frequency
+          |  +--ro frequency-constraint
+          |  |  +--ro adjustment-granularity?   adjustment-granularity
+          |  |  +--ro grid-type?                grid-type
+          |  +--ro central-frequency?      uint64
+          +--ro selected-spectrum
+          |  +--ro upper-frequency?        uint64
+          |  +--ro lower-frequency?        uint64
+          |  +--ro frequency-constraint
+          |     +--ro adjustment-granularity?   adjustment-granularity
+          |     +--ro grid-type?                grid-type
+          +--ro selected-capacity
+             +--ro total-size
+                +--ro value?   uint64
+                +--ro unit?    capacity-unit
