@@ -1,0 +1,34 @@
+
+module: tapi-obfn
+  augment /tapi-common:context/tapi-common:service-interface-point:
+    +--rw obfn-service-interface-point-spec
+       +--rw supported-wavelength
+       |  +--rw upper-frequency?        uint64
+       |  +--rw lower-frequency?        uint64
+       |  +--rw frequency-constraint
+       |     +--rw adjustment-granularity?   adjustment-granularity
+       |     +--rw grid-type?                grid-type
+       +--rw supported-upper-angle?   uint64
+       +--rw supported-lower-angle?   uint64
+  augment /tapi-common:context/tapi-topology:topology-context/tapi-topology:topology/tapi-topology:node/tapi-topology:owned-node-edge-point/tapi-connectivity:cep-list/tapi-connectivity:connection-end-point:
+    +--ro obfn-connection-end-point-spec
+       +--ro wavelength-reference
+       |  +--ro frequency-constraint
+       |  |  +--ro adjustment-granularity?   adjustment-granularity
+       |  |  +--ro grid-type?                grid-type
+       |  +--ro central-frequency?      uint64
+       +--ro obfn-pool* [obfn-id]
+          +--ro obfn-id           uint64
+          +--ro offset-angle-X?   uint64
+          +--ro offset-angle-Y?   uint64
+  augment /tapi-common:context/tapi-connectivity:connectivity-context/tapi-connectivity:connectivity-service:
+    +--rw obfn-connectivity-constraint-spec
+       +--rw wavelength-reference
+       |  +--rw frequency-constraint
+       |  |  +--rw adjustment-granularity?   adjustment-granularity
+       |  |  +--rw grid-type?                grid-type
+       |  +--rw central-frequency?      uint64
+       +--rw obfn-pool* [obfn-id]
+          +--rw obfn-id           uint64
+          +--rw offset-angle-X?   uint64
+          +--rw offset-angle-Y?   uint64
