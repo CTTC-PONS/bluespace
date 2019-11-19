@@ -1,0 +1,136 @@
+module tapi-obfn {
+    namespace "urn:onf:otcc:yang:tapi-obfn";
+    prefix tapi-obfn;
+    import tapi-common {
+        prefix tapi-common;
+    }
+    import tapi-connectivity {
+        prefix tapi-connectivity;
+    }
+    import tapi-topology {
+        prefix tapi-topology;
+    }
+    organization "CTTC";
+    contact "";
+    description "
+        This module contains TAPI obfn Model definitions.
+        ";
+    revision 2010-10-24 {
+        description "Based on ONF Transport API version 2.1.1.
+                   Changes included in this TAPI release (v2.1.1)";
+    }
+    
+       
+    augment "/tapi-common:context/tapi-common:service-interface-point" {
+        container obfn-service-interface-point-spec {
+            uses obfn-service-interface-point-spec;
+            description "none";
+        }
+        description "none";
+    }
+
+    augment "/tapi-common:context/tapi-topology:topology-context/tapi-topology:topology/tapi-topology:node/tapi-topology:owned-node-edge-point/tapi-connectivity:cep-list/tapi-connectivity:connection-end-point" {
+        container obfn-connection-end-point-spec {
+            uses obfn-connection-end-point-spec;
+            description "none";
+        }
+        description "none";
+    }
+    
+    augment "/tapi-common:context/tapi-connectivity:connectivity-context/tapi-connectivity:connectivity-service/tapi-connectivity:connectivity-constraint" {
+        container obfn-connectivity-constraint-spec {
+            uses obfn-connectivity-constraint-spec;
+            description "none";
+        }
+        description "none";
+    }
+    
+   /**************************
+    * package object-classes
+    **************************/
+	
+    grouping obfn-connectivity-constraint-spec {	
+	    leaf wavelength_reference {
+			type uint64;
+			description "";
+		}
+        list obfn-pool {
+            key 'obfn-id';
+			config false;
+			leaf offset-angle-X {
+				type type uint64;
+				description "[-90,90]";
+			}
+			leaf offset-angle-Y {
+				type type uint64;
+				description "[-90,90]";
+			}
+            description "none";
+        }
+        description "none";
+    }	
+	
+	
+    grouping obfn-connection-end-point-spec {
+        leaf obfn-status {
+            type boolean;
+            description "";
+        }	
+	    leaf wavelength_reference {
+			type uint64;
+			description "";
+		}		
+		list obfn-pool {
+            key 'obfn-id';
+			config false;
+			leaf offset-angle-X {
+				type type uint64;
+				description "[-90,90]";
+			}
+			leaf offset-angle-Y {
+				type type uint64;
+				description "[-90,90]";
+			}
+            description "none";
+        }
+        description "none";
+    }
+
+    grouping obfn-service-interface-point-spec {
+        leaf obfn-status {
+            type boolean;
+            description "";
+        }	
+	    leaf wavelength_reference {
+			type uint64;
+			description "";
+		}		
+		list obfn-pool {
+            key 'obfn-id';
+			config false;
+			leaf offset-angle-X {
+				type type uint64;
+				description "[-90,90]";
+			}
+			leaf offset-angle-Y {
+				type type uint64;
+				description "[-90,90]";
+			}
+            description "none";
+        }
+        description "none";
+    }
+
+ 
+    
+
+   /**************************
+    * package type-definitions
+    **************************/
+    identity PHOTONIC_LAYER_QUALIFIER_OBFN {
+        base tapi-common:LAYER_PROTOCOL_QUALIFIER;
+        description "none";
+    }
+    
+    
+}
