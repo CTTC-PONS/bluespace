@@ -8,8 +8,11 @@ module: tapi-obfn
        |  +--rw frequency-constraint
        |     +--rw adjustment-granularity?   adjustment-granularity
        |     +--rw grid-type?                grid-type
+       +--rw supported-beams?         uint64
        +--rw supported-upper-angle?   uint64
        +--rw supported-lower-angle?   uint64
+       +--rw supported-max-width?     uint64
+       +--rw supported-min-width?     uint64
   augment /tapi-common:context/tapi-topology:topology-context/tapi-topology:topology/tapi-topology:node/tapi-topology:owned-node-edge-point/tapi-connectivity:cep-list/tapi-connectivity:connection-end-point:
     +--ro obfn-connection-end-point-spec
        +--ro wavelength-reference
@@ -19,8 +22,10 @@ module: tapi-obfn
        |  +--ro central-frequency?      uint64
        +--ro obfn-pool* [obfn-id]
           +--ro obfn-id           uint64
+          +--ro beam_enable?      boolean
           +--ro offset-angle-X?   uint64
           +--ro offset-angle-Y?   uint64
+          +--ro width?            uint64
   augment /tapi-common:context/tapi-connectivity:connectivity-context/tapi-connectivity:connectivity-service:
     +--rw obfn-connectivity-constraint-spec
        +--rw wavelength-reference
@@ -30,5 +35,7 @@ module: tapi-obfn
        |  +--rw central-frequency?      uint64
        +--rw obfn-pool* [obfn-id]
           +--rw obfn-id           uint64
+          +--rw beam_enable?      boolean
           +--rw offset-angle-X?   uint64
           +--rw offset-angle-Y?   uint64
+          +--rw width?            uint64

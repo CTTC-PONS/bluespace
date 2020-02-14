@@ -63,26 +63,31 @@ module tapi-obfn {
             uses obfn;
             description "none";
         }
-        description "none";
     }
 	
     grouping obfn-connectivity-constraint-spec {	
-	uses obfn-params;
+        uses obfn-params;
     }	
 
     grouping obfn {
-	leaf obfn-id{
-		type uint64;
-	}
-	leaf offset-angle-X {
-		type uint64;
-		description "[-90,90]";
-	}
-	leaf offset-angle-Y {
-		type uint64;
-		description "[-90,90]";
-	}
-    }	
+        leaf obfn-id{
+            type uint64;
+        }
+        leaf beam_enable {
+            type boolean;
+        }
+        leaf offset-angle-X {
+            type uint64;
+            description "[-90,90]";
+        }
+        leaf offset-angle-Y {
+            type uint64;
+            description "[-90,90]";
+        }
+        leaf width {
+            type uint64;
+        }
+    }
 	
     grouping obfn-connection-end-point-spec {
         uses obfn-params;
@@ -92,14 +97,22 @@ module tapi-obfn {
     grouping obfn-service-interface-point-spec {
         container supported-wavelength {
             uses tapi-photonic-media:spectrum-band;
-        } 	
-	leaf supported-upper-angle {
+        } 
+        leaf supported-beams {
+            type uint64;
+        }         
+        leaf supported-upper-angle {
             type uint64;
         }
-	leaf supported-lower-angle {
+        leaf supported-lower-angle {
             type uint64;
         }	
-	
+        leaf supported-max-width {
+            type uint64;
+        }
+        leaf supported-min-width {
+            type uint64;
+        }
         description "none";
     }
 
