@@ -1,62 +1,58 @@
-from swagger_server.models.operations import Operations
+obfn_pool = {}
+wavelength = float()
 
-operations_list = Operations()
 
+def current_data():
+    return {
+        "obfn-pool": obfn_pool,
+        "wavelength": wavelength
+    }
 
-def create_operations(new_operations):
+def create_operations(new_parameters):
     """
     Create operations
 
-    :param new_operations: list of new operations to configure
-    :type new_operations: list
+    :param new_parameters: list of new parameters to configure
+    :type new_parameters: ObfnParameters
 
-    :return: list of operations saved to configure
-    :rtype: list
+    :return: dictionary of new obfn params
+    :rtype: dict
     """
-    actual_operations = list()
-    if len(operations_list.operations) != 0:
-        for nop in new_operations:  # for each new operation 
-            if not any(op.beam_id == nop.beam_id for op in
-                       operations_list.operations):  # if not exists new beam_id 
-                operations_list.operations.append(nop)  # append new operation
-                actual_operations.append(nop)
-    else:
-        operations_list.operations = new_operations  # add new operations to operations_list
-        actual_operations = new_operations
+    global obfn_pool, wavelength
 
-    return actual_operations
+    obfn_pool = {}
+    for obfn in new_parameters.obfn_pool:
+        obfn_pool[obfn.beam_id] = obfn
+    wavelength = new_parameters.wavelength
+
+    return current_data()
 
 
 def delete_operations():
     """
     Delete operations
     """
-    if len(operations_list.operations) != 0:
-        operations_list.operations = []
+    global obfn_pool, wavelength
+
+    obfn_pool = list()
+    wavelength = None
+
+    return current_data()
 
 
-def update_operation(beam_id, x_offset_angle, y_offset_angle, wavelength):
+def update_operation(new_obfn):
     """
     Update operation
 
-    :param beam_id: beam id
-    :type beam_id: int
-    :param x_offset_angle: x offset angle for beam beam_id
-    :type  x_offset_angle: float
-    :param y_offset_angle: y offset angle for beam beam_id
-    :type  y_offset_angle: float 
-    :param wavelength: reference wavelength for calculation of beam pij, phij (j in [0,15]) parameters
-    :type wavelength: float
+    :param new_obfn: obfn settings
+    :type new_obfn: Obfn
 
-    :return: operation modified
-    :rtype: Operation
+    :return: obfn modified
+    :rtype: Obfn
     """
-    if len(operations_list.operations) != 0:
-        index = next((index for (index, op) in enumerate(operations_list.operations) if op.beam_id == beam_id), None)
-        # returns de index position if beam id exist in list of operations. None, otherwise
-        if index is not None:  # if exists beam id
-            operations_list.operations[index].beam_id = beam_id
-            operations_list.operations[index].x_offset_angle = x_offset_angle
-            operations_list.operations[index].y_offset_angle = y_offset_angle
-            operations_list.operations[index].wavelength = wavelength
-            return operations_list.operations[index]
+
+    global obfn_pool
+
+    obfn_pool[new_obfn.beam_id] = new_obfn
+
+    return current_data()

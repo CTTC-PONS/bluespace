@@ -5,8 +5,7 @@ from __future__ import absolute_import
 from flask import json
 from six import BytesIO
 
-from swagger_server.models.operation import Operation  # noqa: E501
-from swagger_server.models.operations import Operations  # noqa: E501
+from swagger_server.models.obfn_parameters import ObfnParameters  # noqa: E501
 from swagger_server.test import BaseTestCase
 
 
@@ -18,7 +17,7 @@ class TestDefaultController(BaseTestCase):
 
         Create configuration
         """
-        body = Operations()
+        body = ObfnParameters()
         response = self.client.open(
             '/api/obfn',
             method='POST',
@@ -49,18 +48,17 @@ class TestDefaultController(BaseTestCase):
         self.assert200(response,
                        'Response body is : ' + response.data.decode('utf-8'))
 
-    def test_update_configuration_by_id(self):
-        """Test case for update_configuration_by_id
+    def test_update_configuration(self):
+        """Test case for update_configuration
 
-        Update configuration by ID
+        Update configuration
         """
-        query_string = [('x_offset_angle', 8.14),
-                        ('y_offset_angle', 8.14),
-                        ('wavelength', 8.14)]
+        body = ObfnParameters()
         response = self.client.open(
-            '/api/obfn/{beam_id}'.format(beam_id=56),
+            '/api/obfn',
             method='PUT',
-            query_string=query_string)
+            data=json.dumps(body),
+            content_type='application/json')
         self.assert200(response,
                        'Response body is : ' + response.data.decode('utf-8'))
 

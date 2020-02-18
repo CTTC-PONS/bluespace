@@ -2,9 +2,9 @@
 swagger: "2.0"
 info:
   description: "OBFN Configuration API"
-  version: "0.0.1"
+  version: "0.1"
   title: "OBFN API"
-host: "10.1.7.64:5002"
+host: "10.1.7.84:5002"
 basePath: "/api"
 schemes:
 - "http"
@@ -18,11 +18,11 @@ paths:
       - "application/json"
       parameters: []
       responses:
-        200:
+        "200":
           description: "Successful operation"
           schema:
-            $ref: "#/definitions/Operations"
-        400:
+            $ref: "#/definitions/obfn-parameters"
+        "400":
           description: "Internal Error"
       x-swagger-router-controller: "swagger_server.controllers.default_controller"
     post:
@@ -37,14 +37,35 @@ paths:
         description: "operations"
         required: true
         schema:
-          $ref: "#/definitions/Operations"
+          $ref: "#/definitions/obfn-parameters"
       responses:
-        200:
+        "200":
           description: "Successful operation"
           schema:
-            $ref: "#/definitions/Operations"
-        400:
+            $ref: "#/definitions/obfn-parameters"
+        "400":
           description: "Invalid parameters supplied"
+      x-swagger-router-controller: "swagger_server.controllers.default_controller"
+    put:
+      summary: "Update configuration"
+      description: "Update operation of resource: beams"
+      operationId: "update_configuration"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "operations"
+        required: true
+        schema:
+          $ref: "#/definitions/obfn-parameters"
+      responses:
+        "200":
+          description: "Successful operation"
+          schema:
+            $ref: "#/definitions/obfn-parameters"
+        "400":
+          description: "Invalid ID supplied"
       x-swagger-router-controller: "swagger_server.controllers.default_controller"
     delete:
       summary: "Delete configuration"
@@ -54,77 +75,50 @@ paths:
       - "application/json"
       parameters: []
       responses:
-        200:
+        "200":
           description: "Successful operation"
-        400:
+        "400":
           description: "Internal Error"
       x-swagger-router-controller: "swagger_server.controllers.default_controller"
-  /obfn/{beam_id}:
-    put:
-      summary: "Update configuration by ID"
-      description: "Update operation of resource: beams"
-      operationId: "update_configuration_by_id"
-      produces:
-      - "application/json"
-      parameters:
-      - name: "beam_id"
-        in: "path"
-        description: "beam id"
-        required: true
-        type: "integer"
-      - name: "x_offset_angle"
-        in: "query"
-        description: "X Offset Angle (deg)"
-        required: true
-        type: "number"
-      - name: "y_offset_angle"
-        in: "query"
-        description: "Y Offset Angle (deg)"
-        required: true
-        type: "number"
-      - name: "wavelength"
-        in: "query"
-        description: "wavelength"
-        required: true
-        type: "number"
-      responses:
-        200:
-          description: "Successful operation"
-          schema:
-            $ref: "#/definitions/Operation"
-        400:
-          description: "Invalid ID supplied"
-      x-swagger-router-controller: "swagger_server.controllers.default_controller"
 definitions:
-  Operations:
+  obfn-parameters:
     type: "object"
     properties:
-      operations:
+      obfn-pool:
         type: "array"
         items:
-          $ref: "#/definitions/Operation"
+          $ref: "#/definitions/obfn"
+      wavelength:
+        type: "number"
     example:
-      operations:
+      obfn-pool:
       - beam_id: 0
+        beam_enable: true
         x_offset_angle: -90
         y_offset_angle: 90
-        wavelength: 1553
+        width: 502
       - beam_id: 1
-        x_offset_angle: -90
-        y_offset_angle: 90
-        wavelength: 1553
-  Operation:
+        beam_enable: false
+        x_offset_angle: 70
+        y_offset_angle: 70
+        width: 123
+      wavelength: 1553
+  obfn:
+    type: "object"
     properties:
       beam_id:
         type: "integer"
+      beam_enable:
+        type: "boolean"
       x_offset_angle:
         type: "number"
       y_offset_angle:
         type: "number"
-      wavelength:
+      width:
         type: "number"
     example:
       beam_id: 0
+      beam_enable: true
       x_offset_angle: -90
       y_offset_angle: 90
-      wavelength: 1553
+      width: 502

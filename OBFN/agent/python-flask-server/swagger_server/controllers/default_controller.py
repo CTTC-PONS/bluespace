@@ -2,7 +2,8 @@ from subprocess import call
 
 import connexion
 from swagger_server import database
-from swagger_server.models.operations import Operations  # noqa: E501
+from swagger_server.models.obfn_parameters import ObfnParameters  # noqa: E501
+from swagger_server.models.obfn import Obfn  # noqa: E501
 
 
 def create_configuration():  # noqa: E501
@@ -10,16 +11,19 @@ def create_configuration():  # noqa: E501
 
     Create operations of resource: beams # noqa: E501
 
-    :rtype: Operations
+    :rtype: ObfnParameters
     """
     if connexion.request.is_json:
-        new_operations = Operations.from_dict(connexion.request.get_json())  # noqa: E501
-        operations_to_configure_HW = database.create_operations(new_operations.operations)
-        if len(operations_to_configure_HW) != 0:
-            for op in operations_to_configure_HW:  # for each new operation created
-                exec_config_app(op.beam_id, op.x_offset_angle, op.y_offset_angle, op.wavelength)
+        obfn_parameteres = ObfnParameters.from_dict(connexion.request.get_json())  # noqa: E501
+        operations_to_configure_HW = database.create_operations(obfn_parameteres)
+        if len(operations_to_configure_HW['obfn-pool']) != 0:
+            for op in operations_to_configure_HW['obfn-pool'].values():
+                exec_config_app(op.beam_id, op.beam_enable, op.x_offset_angle, op.y_offset_angle, op.width,
+                                operations_to_configure_HW['wavelength'])
 
-    return database.operations_list
+    e = database.current_data()
+    print(e)
+    return e
 
 
 def delete_configuration():  # noqa: E501
@@ -31,6 +35,9 @@ def delete_configuration():  # noqa: E501
     :rtype: None
     """
     database.delete_operations()
+    e = database.current_data()
+    print(e)
+    return e
 
 
 def retrieve_configuration():  # noqa: E501
@@ -39,50 +46,78 @@ def retrieve_configuration():  # noqa: E501
     Retrieve operations of resource: beams # noqa: E501
 
 
-    :rtype: Operations
+    :rtype: ObfnParameters
     """
-    return database.operations_list
+    e = database.current_data()
+    print(e)
+    return e
 
 
-def update_configuration_by_id(beam_id, x_offset_angle, y_offset_angle, wavelength):  # noqa: E501
-    """Update configuration by ID
+def update_configuration():  # noqa: E501
+    """Update configuration
 
     Update operation of resource: beams # noqa: E501
 
-    :param beam_id: beam id
-    :type beam_id: int
-    :param x_offset_angle: x offset angle for beam beam_id
-    :type  x_offset_angle: float
-    :param y_offset_angle: y offset angle for beam beam_id
-    :type  y_offset_angle: float 
-    :param wavelength: reference wavelength for calculation of beam pij, phij (j in [0,15]) parameters
-    :type wavelength: float
+    :param new_obfn:
+    :type new_obfn: Obfn
 
-    :rtype: Operation
+    :rtype: Obfn
     """
-    new_operation = database.update_operation(beam_id, x_offset_angle, y_offset_angle, wavelength)
-    exec_config_app(beam_id, x_offset_angle, y_offset_angle, wavelength)
+    global wavelength
 
-    return new_operation
+    if not connexion.request.is_json:
+        return
+
+    new_obfn = Obfn.from_dict(connexion.request.get_json())  # noqa: E501
+
+    database.update_operation(new_obfn)
+    exec_config_app(new_obfn.beam_id, new_obfn.beam_enable, new_obfn.x_offset_angle, new_obfn.y_offset_angle,
+                    new_obfn.width)
+
+    e = database.current_data()
+    print(e)
+    return e
 
 
-def exec_config_app(beam_id, x_offset_angle, y_offset_angle, wavelength):
+def exec_config_app(beam_id, beam_enable, x_offset_angle, y_offset_angle, width, wavelength=None):
     """Execute configuration application
 
     Call application that is responsible to configure the actual OBFN HW  
 
     :param beam_id: beam id
     :type beam_id: int
+    :param beam_enable: enable/disable beam
+    :type beam_enable: bool
     :param x_offset_angle: x offset angle for beam beam_id
     :type  x_offset_angle: float
     :param y_offset_angle: y offset angle for beam beam_id
-    :type  y_offset_angle: float 
+    :type  y_offset_angle: float
+    :param width:
+    :type  width: float
     :param wavelength: reference wavelength for calculation of beam pij, phij (j in [0,15]) parameters
     :type wavelength: float
 
     :rtype:
     """
-    call_arg_list = ["swagger_server/obfn-conf/obfn-conf", "-v", "-w", "{:f}".format(wavelength), "-i",
-                     "{:d}".format(beam_id), "-x", "{:f}".format(x_offset_angle), "-y", "{:f}".format(y_offset_angle)]
-    # print (['CMD:', call_arg_list])
+    if wavelength:
+        call_arg_list = ["swagger_server/obfn-conf/obfn-conf",
+                         "-v",
+                         "-i", "{:d}".format(beam_id),
+                         "-e", "{}".format(beam_enable),
+                         "-x", "{:f}".format(x_offset_angle),
+                         "-y", "{:f}".format(y_offset_angle),
+                         "-d", "{:f}".format(width),
+                         "-w", "{:f}".format(wavelength)
+                         ]
+    else:
+        call_arg_list = ["swagger_server/obfn-conf/obfn-conf",
+                         "-v",
+                         "-i", "{:d}".format(beam_id),
+                         "-e", "{}".format(beam_enable),
+                         "-x", "{:f}".format(x_offset_angle),
+                         "-y", "{:f}".format(y_offset_angle),
+                         "-d", "{:f}".format(width)
+                         ]
+
+    print(['CMD:', call_arg_list])
     return call(call_arg_list)

@@ -27,24 +27,8 @@ def post(host, operations):
     return request.json()
 
 
-def put(host, id, x, y, w):
-    """
-    Modify operation on a beam specified by ID
-
-    :param host: ip address from REST API agent
-    :type host: str
-    :param id: beam id
-    :type id: int
-    :param x: X Offset Angle (deg)
-    :type x: float
-    :param y: Y Offset Angle (deg)
-    :type y: float
-    :param w: wavelength
-    :type w: float
-    :return: operation modified
-    """
-    payload = {'x_offset_angle': x, 'y_offset_angle': y, 'wavelength': w}
-    request = requests.put('http://%s:5002/api/obfn/%s' % (host, id), headers=headers, params=payload)
+def put(host, dataset_put):
+    request = requests.put('http://%s:5002/api/obfn' % (host), headers=headers, json=dataset_put)
     return request.json()
 
 
@@ -59,35 +43,48 @@ def delete(host):
 
 
 if __name__ == '__main__':
-    host = "10.1.7.64"
+    host = "10.1.7.84"
     headers = {"Content-Type": "application/json"}
     dataset = {
-        "operations": [
+        "obfn-pool": [
             {
                 "beam_id": 0,
+                "beam_enable": True,
                 "x_offset_angle": -90,
                 "y_offset_angle": 90,
-                "wavelength": 1553
+                "width": 150
             },
             {
                 "beam_id": 1,
+                "beam_enable": True,
                 "x_offset_angle": -90,
                 "y_offset_angle": 90,
-                "wavelength": 1553
+                "width": 155
             },
             {
                 "beam_id": 2,
+                "beam_enable": True,
                 "x_offset_angle": -90,
                 "y_offset_angle": 90,
-                "wavelength": 1553
+                "width": 160
             },
             {
                 "beam_id": 3,
+                "beam_enable": True,
                 "x_offset_angle": -90,
                 "y_offset_angle": 90,
-                "wavelength": 1553
+                "width": 165
             }
-        ]
+        ],
+        "wavelength": 150
+    }
+
+    dataset_put = {
+        "beam_id": 2,
+        "beam_enable": False,
+        "x_offset_angle": -90,
+        "y_offset_angle": 90,
+        "width": 150
     }
 
     print("POST")
@@ -97,7 +94,7 @@ if __name__ == '__main__':
     print(get(host))
 
     print("MODIFY BEAM with beam_id = 1")
-    print(put(host, 1, -80, 80, 1552))
+    print(put(host, dataset_put))
 
     print("GET")
     print(get(host))
