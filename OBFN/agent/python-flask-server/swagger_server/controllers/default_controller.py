@@ -3,7 +3,6 @@ from subprocess import call
 import connexion
 from swagger_server import database
 from swagger_server.models.obfn_parameters import ObfnParameters  # noqa: E501
-from swagger_server.models.obfn import Obfn  # noqa: E501
 
 
 def create_configuration():  # noqa: E501
@@ -21,7 +20,7 @@ def create_configuration():  # noqa: E501
                 exec_config_app(op.beam_id, op.beam_enable, op.x_offset_angle, op.y_offset_angle, op.width,
                                 operations_to_configure_HW['wavelength'])
 
-    e = database.current_data()
+    e = database.display_data()
     print(e)
     return e
 
@@ -35,7 +34,7 @@ def delete_configuration():  # noqa: E501
     :rtype: None
     """
     database.delete_operations()
-    e = database.current_data()
+    e = database.display_data()
     print(e)
     return e
 
@@ -48,7 +47,7 @@ def retrieve_configuration():  # noqa: E501
 
     :rtype: ObfnParameters
     """
-    e = database.current_data()
+    e = database.display_data()
     print(e)
     return e
 
@@ -63,20 +62,22 @@ def update_configuration():  # noqa: E501
 
     :rtype: Obfn
     """
-    global wavelength
+    # global wavelength
+    #
+    # if not connexion.request.is_json:
+    #     return
+    #
+    # new_obfn = Obfn.from_dict(connexion.request.get_json())  # noqa: E501
+    #
+    # database.update_operation(new_obfn)
+    # exec_config_app(new_obfn.beam_id, new_obfn.beam_enable, new_obfn.x_offset_angle, new_obfn.y_offset_angle,
+    #                 new_obfn.width)
+    #
+    # e = database.display_data()
+    # print(e)
+    # return e
 
-    if not connexion.request.is_json:
-        return
-
-    new_obfn = Obfn.from_dict(connexion.request.get_json())  # noqa: E501
-
-    database.update_operation(new_obfn)
-    exec_config_app(new_obfn.beam_id, new_obfn.beam_enable, new_obfn.x_offset_angle, new_obfn.y_offset_angle,
-                    new_obfn.width)
-
-    e = database.current_data()
-    print(e)
-    return e
+    return create_configuration()
 
 
 def exec_config_app(beam_id, beam_enable, x_offset_angle, y_offset_angle, width, wavelength=None):
@@ -119,5 +120,4 @@ def exec_config_app(beam_id, beam_enable, x_offset_angle, y_offset_angle, width,
                          "-d", "{:f}".format(width)
                          ]
 
-    print(['CMD:', call_arg_list])
     return call(call_arg_list)

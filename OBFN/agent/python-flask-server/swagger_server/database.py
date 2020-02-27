@@ -2,11 +2,19 @@ obfn_pool = {}
 wavelength = float()
 
 
-def current_data():
+def display_data():
+    return {
+        "obfn-pool": [obfn_pool[obfn] for obfn in obfn_pool],
+        "wavelength": wavelength
+    }
+
+
+def get_data():
     return {
         "obfn-pool": obfn_pool,
         "wavelength": wavelength
     }
+
 
 def create_operations(new_parameters):
     """
@@ -25,7 +33,7 @@ def create_operations(new_parameters):
         obfn_pool[obfn.beam_id] = obfn
     wavelength = new_parameters.wavelength
 
-    return current_data()
+    return get_data()
 
 
 def delete_operations():
@@ -37,7 +45,7 @@ def delete_operations():
     obfn_pool = list()
     wavelength = None
 
-    return current_data()
+    return display_data()
 
 
 def update_operation(new_obfn):
@@ -55,4 +63,4 @@ def update_operation(new_obfn):
 
     obfn_pool[new_obfn.beam_id] = new_obfn
 
-    return current_data()
+    return get_data()

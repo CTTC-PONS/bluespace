@@ -80,11 +80,36 @@ if __name__ == '__main__':
     }
 
     dataset_put = {
-        "beam_id": 2,
-        "beam_enable": False,
-        "x_offset_angle": -90,
-        "y_offset_angle": 90,
-        "width": 150
+        "obfn-pool": [
+            {
+                "beam_enable": True,
+                "beam_id": 1,
+                "width": 50,
+                "x_offset_angle": 30,
+                "y_offset_angle": 60
+            },
+            {
+                "beam_enable": False,
+                "beam_id": 2,
+                "width": 51,
+                "x_offset_angle": 31,
+                "y_offset_angle": 61
+            },
+            {
+                "beam_enable": False,
+                "beam_id": 3,
+                "width": 52,
+                "x_offset_angle": 32,
+                "y_offset_angle": 62
+            },
+            {
+                "beam_enable": True,
+                "beam_id": 4,
+                "width": 53,
+                "x_offset_angle": 33,
+                "y_offset_angle": 63
+            }
+        ]
     }
 
     print("POST")
@@ -93,7 +118,7 @@ if __name__ == '__main__':
     print("GET")
     print(get(host))
 
-    print("MODIFY BEAM with beam_id = 1")
+    print("MODIFY BEAM")
     print(put(host, dataset_put))
 
     print("GET")
