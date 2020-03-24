@@ -5,33 +5,34 @@ from __future__ import absolute_import
 from flask import json
 from six import BytesIO
 
-from swagger_server.models.operation import Operation  # noqa: E501
+from swagger_server.models.arof_parameters import ArofParameters  # noqa: E501
 from swagger_server.test import BaseTestCase
 
 
 class TestDefaultController(BaseTestCase):
     """DefaultController integration test stubs"""
 
-    def test_create_configuration_by_id(self):
-        """Test case for create_configuration_by_id
+    def test_create_configuration(self):
+        """Test case for create_configuration
 
-        Create configuration by ID
+        Create configuration
         """
-        query_string = [('enable', true)]
+        arof_pool = ArofParameters()
         response = self.client.open(
-            '/api/arof/{arof_id}'.format(arof_id=56),
+            '/api/arof',
             method='POST',
-            query_string=query_string)
+            data=json.dumps(arof_pool),
+            content_type='application/json')
         self.assert200(response,
                        'Response body is : ' + response.data.decode('utf-8'))
 
-    def test_delete_configuration_by_id(self):
-        """Test case for delete_configuration_by_id
+    def test_delete_configuration(self):
+        """Test case for delete_configuration
 
-        Delete configuration by ID
+        Delete configuration
         """
         response = self.client.open(
-            '/api/arof/{arof_id}'.format(arof_id=56),
+            '/api/arof',
             method='DELETE')
         self.assert200(response,
                        'Response body is : ' + response.data.decode('utf-8'))
@@ -47,16 +48,17 @@ class TestDefaultController(BaseTestCase):
         self.assert200(response,
                        'Response body is : ' + response.data.decode('utf-8'))
 
-    def test_update_arof_by_id(self):
-        """Test case for update_arof_by_id
+    def test_update_configuration(self):
+        """Test case for update_configuration
 
-        Update configuration by ID
+        Update configuration
         """
-        query_string = [('enable', true)]
+        arof_pool = ArofParameters()
         response = self.client.open(
-            '/api/arof/{arof_id}'.format(arof_id=56),
+            '/api/arof',
             method='PUT',
-            query_string=query_string)
+            data=json.dumps(arof_pool),
+            content_type='application/json')
         self.assert200(response,
                        'Response body is : ' + response.data.decode('utf-8'))
 

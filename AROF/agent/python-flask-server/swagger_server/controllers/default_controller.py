@@ -1,79 +1,91 @@
-from subprocess import call
+import connexion
+import six
 
-from swagger_server import database
+from swagger_server.models.arof_parameters import ArofParameters  # noqa: E501
+from swagger_server import util
+
+arof_pool_db = None
 
 
-def create_configuration_by_id(arof_id, enable=False):  # noqa: E501
-    """Create configuration by ID
+def initialise():
+    global arof_pool_db
+    arof_pool_db = ArofParameters()
+    arof_pool_db.arof_pool = []
 
-    Create operation of resource: laser # noqa: E501
 
-    :param arof_id: arof id
-    :type arof_id: int
-    :param enable: enable or disable the laser
-    :type enable: bool
+def create_configuration(arof_pool):  # noqa: E501
+    """Create configuration
 
-    :rtype: Operation
+    Create arof configuration # noqa: E501
+
+    :param arof_pool: arof pool
+    :type arof_pool: dict | bytes
+
+    :rtype: ArofParameters
     """
-    new_op = database.create_operation(arof_id, enable)
-    exec_config_app(arof_id, enable)
-    return new_op
+    global arof_pool_db
+
+    if connexion.request.is_json:
+        arof_pool_db = ArofParameters.from_dict(connexion.request.get_json())  # noqa: E501
+        return arof_pool_db
+
+    else:
+        return 'Error!'
 
 
-def delete_configuration_by_id(arof_id):  # noqa: E501
-    """Delete configuration by ID
+def delete_configuration():  # noqa: E501
+    """Delete configuration
 
-    Delete operation of resource: laser # noqa: E501
+    Delete all configuration # noqa: E501
 
-    :param arof_id: arof id
-    :type arof_id: int
 
-    :rtype: Operation
+    :rtype: None
     """
-    database.delete_operation(arof_id)
-    exec_config_app(arof_id, False)
+    global arof_pool_db
+    arof_pool_db = ArofParameters()
+    return arof_pool_db
 
 
 def retrieve_configuration():  # noqa: E501
     """Retrieve configuration
 
-    Retrieve operations of resource: laser # noqa: E501
+    Retrieve operation of resource: laser # noqa: E501
 
-    :rtype: List[Operation]
+
+    :rtype: List[ArofParameters]
     """
-    return database.operations
+    global arof_pool_db
+    return arof_pool_db
 
 
-def update_configuration_by_id(arof_id, enable=False):  # noqa: E501
-    """Update configuration by ID
+def update_configuration(arof_pool):  # noqa: E501
+    """Update configuration
 
-    Update operation of resource: laser # noqa: E501
+    Update arof configuration # noqa: E501
 
-    :param arof_id: arof id
-    :type arof_id: int
-    :param enable: enable or disable the laser
-    :type enable: bool
+    :param arof_pool: arof pool
+    :type arof_pool: dict | bytes
 
-    :rtype: Operation
+    :rtype: ArofParameters
     """
-    op = database.update_operation(arof_id, enable)
-    exec_config_app(arof_id, enable)
-    return op
+    global arof_pool_db
+    if not arof_pool_db:
+        initialise()
 
+    if connexion.request.is_json:
+        arof_pool = ArofParameters.from_dict(connexion.request.get_json())  # noqa: E501
+        new_arof_pool = ArofParameters()
+        new_arof_pool.arof_pool = []
+        for old_arof in arof_pool_db.arof_pool:
+            for new_arof in arof_pool.arof_pool:
+                if new_arof.arof_id == old_arof.arof_id:
+                    new_arof_pool.arof_pool.append(new_arof)
+                else:
+                    new_arof_pool.arof_pool.append(old_arof)
 
-def exec_config_app(arof_id, enable):
-    """Execute configuration application
+        arof_pool_db = new_arof_pool
 
-    Call application that is responsible to configure the actual ARoF HW   
+        return arof_pool_db
 
-    :param arof_id: arof id
-    :type arof_id: int
-    :param enable: enable or disable the laser
-    :type enable: bool
-
-    :rtype:
-    """
-    # call_arg_list = ["swagger_server/arof-conf/arof-conf", "-i", "{:d}".format(arof_id), "-e", "{:d}".format(enable)]
-    call_arg_list = ["swagger_server/arof-conf/arof-conf", "-v", "-i", "{:d}".format(arof_id), "-e", "{:d}".format(enable)]
-    # print (['CMD:', call_arg_list])
-    return call(call_arg_list)
+    else:
+        return 'Error!'
