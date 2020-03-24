@@ -1,0 +1,39 @@
+# GET TEST
+curl --request GET --url http://127.0.0.1:5000/api/arof
+
+# POST TEST
+curl --request POST \
+  --url http://127.0.0.1:5000/api/arof \
+  --header 'content-type: application/json' \
+  --data '{
+	"arof-pool": [
+		{
+			"arof-id": 0,
+			"enabled": true,
+			"wavelength": 1550
+		},
+		{
+			"arof-id": 1,
+			"enabled": false,
+			"wavelength": 1550
+		}
+	]
+}'
+
+
+# DEL TEST
+curl --request DELETE --url http://127.0.0.1:5000/api/arof
+
+# PUT TEST
+curl --request PUT \
+  --url http://127.0.0.1:5000/api/arof \
+  --header 'content-type: application/json' \
+  --data '{
+	"arof-pool": [
+		{
+			"arof-id": 1,
+			"enabled": true,
+			"wavelength": 1550
+		}
+	]
+}'
