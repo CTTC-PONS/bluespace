@@ -104,7 +104,11 @@ definitions:
         x-offset-angle: 70
         y-offset-angle: 70
         width: 123
-      wavelength: 1553
+      wavelength-reference-pool:
+      - wavelength-id: 0
+        central-frequency: 1550
+      - wavelength-id: 1
+        central-frequency: 1550
   obfn:
     type: "object"
     properties:
