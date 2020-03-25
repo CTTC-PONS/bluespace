@@ -17,11 +17,11 @@ class TestDefaultController(BaseTestCase):
 
         Create configuration
         """
-        body = ObfnParameters()
+        obfn_params = ObfnParameters()
         response = self.client.open(
             '/api/obfn',
             method='POST',
-            data=json.dumps(body),
+            data=json.dumps(obfn_params),
             content_type='application/json')
         self.assert200(response,
                        'Response body is : ' + response.data.decode('utf-8'))
@@ -53,11 +53,11 @@ class TestDefaultController(BaseTestCase):
 
         Update configuration
         """
-        body = ObfnParameters()
+        obfn_params = ObfnParameters()
         response = self.client.open(
             '/api/obfn',
             method='PUT',
-            data=json.dumps(body),
+            data=json.dumps(obfn_params),
             content_type='application/json')
         self.assert200(response,
                        'Response body is : ' + response.data.decode('utf-8'))

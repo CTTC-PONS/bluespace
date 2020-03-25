@@ -1,0 +1,114 @@
+## GET TEST
+curl --request GET \
+  --url http://10.1.7.84:5002/api/obfn
+
+# POST TEST
+curl --request POST \
+  --url http://10.1.7.84:5002/api/obfn \
+  --header 'content-type: application/json' \
+  --data '{
+	"obfn-pool": [
+		{
+			"beam-enable": true,
+			"beam-id": 0,
+			"width": 50,
+			"x-offset-angle": 30,
+			"y-offset-angle": 60
+		},
+		{
+			"beam-enable": true,
+			"beam-id": 1,
+			"width": 51,
+			"x-offset-angle": 31,
+			"y-offset-angle": 61
+		},
+		{
+			"beam-enable": true,
+			"beam-id": 2,
+			"width": 52,
+			"x-offset-angle": 32,
+			"y-offset-angle": 62
+		},
+		{
+			"beam.enable": true,
+			"beam-id": 3,
+			"width": 53,
+			"x-offset-angle": 33,
+			"y-offset-angle": 63
+		}
+	],
+	"wavelength-reference-pool": [
+		{
+			"wavelength-id": 0,
+			"central-frequency": {
+				"central-frequency": 1550,
+				"frequency-constraint": {
+					"adjustment-granularity": "G_25GHZ",
+					"grid-type": "DWDM"
+				}
+			}
+		},
+		{
+			"wavelength-id": 1,
+			"central-frequency": {
+				"central-frequency": 1551,
+				"frequency-constraint": {
+					"adjustment-granularity": "G_25GHZ",
+					"grid-type": "DWDM"
+				}
+			}
+		},
+		{
+			"wavelength-id": 2,
+			"central-frequency": {
+				"central-frequency": 1552,
+				"frequency-constraint": {
+					"adjustment-granularity": "G_25GHZ",
+					"grid-type": "DWDM"
+				}
+			}
+		},
+		{
+			"wavelength-id": 3,
+			"central-frequency": {
+				"central-frequency": 1553,
+				"frequency-constraint": {
+					"adjustment-granularity": "G_25GHZ",
+					"grid-type": "DWDM"
+				}
+			}
+		}
+	]
+}'
+
+# DEL TEST
+curl --request DELETE \
+  --url http://10.1.7.84:5002/api/obfn
+
+# PUT TEST
+curl --request PUT \
+  --url http://10.1.7.84:5002/api/obfn \
+  --header 'content-type: application/json' \
+  --data '{
+	"obfn-pool": [
+		{
+			"beam-enable": false,
+			"beam-id": 3,
+			"width": 99,
+			"x-offset-angle": 98,
+			"y-offset-angle": 97
+		}
+	],
+	"wavelength-reference-pool": [
+		{
+			"wavelength-id": 3,
+			"central-frequency": {
+				"central-frequency": 999,
+				"frequency-constraint": {
+					"adjustment-granularity": "G_25GHZ",
+					"grid-type": "DWDM"
+				}
+			}
+		}
+	]
+}'

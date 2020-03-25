@@ -38,10 +38,10 @@ class Obfn(Model):
         }
 
         self.attribute_map = {
-            'beam_id': 'beam_id',
-            'beam_enable': 'beam_enable',
-            'x_offset_angle': 'x_offset_angle',
-            'y_offset_angle': 'y_offset_angle',
+            'beam_id': 'beam-id',
+            'beam_enable': 'beam-enable',
+            'x_offset_angle': 'x-offset-angle',
+            'y_offset_angle': 'y-offset-angle',
             'width': 'width'
         }
 

@@ -12,7 +12,7 @@ paths:
   /obfn:
     get:
       summary: "Retrieve configuration"
-      description: "Retrieve operations of resource: beams"
+      description: "Retrieve OBFN configuration"
       operationId: "retrieve_configuration"
       produces:
       - "application/json"
@@ -27,13 +27,13 @@ paths:
       x-swagger-router-controller: "swagger_server.controllers.default_controller"
     post:
       summary: "Create configuration"
-      description: "Create operations of resource: beams"
+      description: "Create OBFN configuration"
       operationId: "create_configuration"
       produces:
       - "application/json"
       parameters:
       - in: "body"
-        name: "body"
+        name: "obfn_params"
         description: "operations"
         required: true
         schema:
@@ -48,13 +48,13 @@ paths:
       x-swagger-router-controller: "swagger_server.controllers.default_controller"
     put:
       summary: "Update configuration"
-      description: "Update operation of resource: beams"
+      description: "Update OBFN configuration"
       operationId: "update_configuration"
       produces:
       - "application/json"
       parameters:
       - in: "body"
-        name: "body"
+        name: "obfn_params"
         description: "operations"
         required: true
         schema:
@@ -69,7 +69,7 @@ paths:
       x-swagger-router-controller: "swagger_server.controllers.default_controller"
     delete:
       summary: "Delete configuration"
-      description: "Delete operations of resource: beams"
+      description: "Delete OBFN configuration"
       operationId: "delete_configuration"
       produces:
       - "application/json"
@@ -88,37 +88,60 @@ definitions:
         type: "array"
         items:
           $ref: "#/definitions/obfn"
-      wavelength:
-        type: "number"
+      wavelength-reference-pool:
+        type: "array"
+        items:
+          $ref: "#/definitions/wavelength-reference"
     example:
       obfn-pool:
-      - beam_id: 0
-        beam_enable: true
-        x_offset_angle: -90
-        y_offset_angle: 90
+      - beam-id: 0
+        beam-enable: true
+        x-offset-angle: -90
+        y-offset-angle: 90
         width: 502
-      - beam_id: 1
-        beam_enable: false
-        x_offset_angle: 70
-        y_offset_angle: 70
+      - beam-id: 1
+        beam-enable: false
+        x-offset-angle: 70
+        y-offset-angle: 70
         width: 123
       wavelength: 1553
   obfn:
     type: "object"
     properties:
-      beam_id:
+      beam-id:
         type: "integer"
-      beam_enable:
+      beam-enable:
         type: "boolean"
-      x_offset_angle:
+      x-offset-angle:
         type: "number"
-      y_offset_angle:
+      y-offset-angle:
         type: "number"
       width:
         type: "number"
+  wavelength-reference:
+    type: "object"
+    properties:
+      wavelength-id:
+        type: "integer"
+      central-frequency:
+        $ref: '#/definitions/central-frequency'
+  central-frequency:
+    type: "object"
+    properties:
+      frequency-constraint:
+        $ref: "#/definitions/frequency-constraint"
+      central-frequency:
+        type: "integer"
     example:
-      beam_id: 0
-      beam_enable: true
-      x_offset_angle: -90
-      y_offset_angle: 90
+      beam-id: 0
+      beam-enable: true
+      x-offset-angle: -90
+      y-offset-angle: 90
       width: 502
+  frequency-constraint:
+    type: "object"
+    properties:
+      adjustment-granularity:
+        type: "string"
+      grid-type:
+        type: "string"

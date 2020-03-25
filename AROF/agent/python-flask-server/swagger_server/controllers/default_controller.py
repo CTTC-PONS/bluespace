@@ -73,15 +73,16 @@ def update_configuration(arof_pool):  # noqa: E501
         initialise()
 
     if connexion.request.is_json:
-        arof_pool = ArofParameters.from_dict(connexion.request.get_json())  # noqa: E501
-        new_arof_pool = ArofParameters()
-        new_arof_pool.arof_pool = []
+        new_arof_pool = ArofParameters.from_dict(connexion.request.get_json())  # noqa: E501
+
         for old_arof in arof_pool_db.arof_pool:
-            for new_arof in arof_pool.arof_pool:
-                if new_arof.arof_id == old_arof.arof_id:
-                    new_arof_pool.arof_pool.append(new_arof)
-                else:
-                    new_arof_pool.arof_pool.append(old_arof)
+            replaced = False
+            for new_arof in new_arof_pool.arof_pool:
+                if old_arof.arof_id == new_arof.arof_id:
+                    replaced = True
+                    break
+            if not replaced:
+                new_arof_pool.arof_pool.append(old_arof)
 
         arof_pool_db = new_arof_pool
 
