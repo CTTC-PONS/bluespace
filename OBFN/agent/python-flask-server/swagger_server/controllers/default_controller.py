@@ -12,6 +12,9 @@ def initialise():
     obfn_parameters_db.wavelength_reference_pool = []
 
 
+initialise()
+
+
 def create_configuration(obfn_params):  # noqa: E501
     """Create configuration
 
@@ -74,23 +77,29 @@ def update_configuration(obfn_params):  # noqa: E501
     if connexion.request.is_json:
         new_obfn_parameters = ObfnParameters.from_dict(connexion.request.get_json())  # noqa: E501
 
-        for old_obfn in obfn_parameters_db.obfn_pool:
-            replaced = False
-            for new_obfn in new_obfn_parameters.obfn_pool:
-                if old_obfn.beam_id == new_obfn.beam_id:
-                    replaced = True
-                    break
-            if not replaced:
-                new_obfn_parameters.obfn_pool.append(old_obfn)
+        if new_obfn_parameters.obfn_pool:
+            for old_obfn in obfn_parameters_db.obfn_pool:
+                replaced = False
+                for new_obfn in new_obfn_parameters.obfn_pool:
+                    if old_obfn.beam_id == new_obfn.beam_id:
+                        replaced = True
+                        break
+                if not replaced:
+                    new_obfn_parameters.obfn_pool.append(old_obfn)
+        else:
+            new_obfn_parameters.obfn_pool = obfn_parameters_db.obfn_pool
 
-        for old_wavelength_reference in obfn_parameters_db.wavelength_reference_pool:
-            replaced = False
-            for new_wavelength_reference in new_obfn_parameters.wavelength_reference_pool:
-                if old_wavelength_reference.wavelength_id == new_wavelength_reference.wavelength_id:
-                    replaced = True
-                    break
-            if not replaced:
-                new_obfn_parameters.wavelength_reference_pool.append(old_wavelength_reference)
+        if new_obfn_parameters.wavelength_reference_pool:
+            for old_wavelength_reference in obfn_parameters_db.wavelength_reference_pool:
+                replaced = False
+                for new_wavelength_reference in new_obfn_parameters.wavelength_reference_pool:
+                    if old_wavelength_reference.wavelength_id == new_wavelength_reference.wavelength_id:
+                        replaced = True
+                        break
+                if not replaced:
+                    new_obfn_parameters.wavelength_reference_pool.append(old_wavelength_reference)
+        else:
+            new_obfn_parameters.wavelength_reference_pool = obfn_parameters_db.wavelength_reference_pool
 
         obfn_parameters_db = new_obfn_parameters
 

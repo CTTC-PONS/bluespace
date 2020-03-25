@@ -40,43 +40,19 @@ curl --request POST \
 	"wavelength-reference-pool": [
 		{
 			"wavelength-id": 0,
-			"central-frequency": {
-				"central-frequency": 1550,
-				"frequency-constraint": {
-					"adjustment-granularity": "G_25GHZ",
-					"grid-type": "DWDM"
-				}
-			}
+			"central-frequency": 1550
 		},
 		{
 			"wavelength-id": 1,
-			"central-frequency": {
-				"central-frequency": 1551,
-				"frequency-constraint": {
-					"adjustment-granularity": "G_25GHZ",
-					"grid-type": "DWDM"
-				}
-			}
+			"central-frequency": 1551
 		},
 		{
 			"wavelength-id": 2,
-			"central-frequency": {
-				"central-frequency": 1552,
-				"frequency-constraint": {
-					"adjustment-granularity": "G_25GHZ",
-					"grid-type": "DWDM"
-				}
-			}
+			"central-frequency": 1552
 		},
 		{
 			"wavelength-id": 3,
-			"central-frequency": {
-				"central-frequency": 1553,
-				"frequency-constraint": {
-					"adjustment-granularity": "G_25GHZ",
-					"grid-type": "DWDM"
-				}
-			}
+			"central-frequency": 1553
 		}
 	]
 }'
@@ -97,18 +73,6 @@ curl --request PUT \
 			"width": 99,
 			"x-offset-angle": 98,
 			"y-offset-angle": 97
-		}
-	],
-	"wavelength-reference-pool": [
-		{
-			"wavelength-id": 3,
-			"central-frequency": {
-				"central-frequency": 999,
-				"frequency-constraint": {
-					"adjustment-granularity": "G_25GHZ",
-					"grid-type": "DWDM"
-				}
-			}
 		}
 	]
 }'

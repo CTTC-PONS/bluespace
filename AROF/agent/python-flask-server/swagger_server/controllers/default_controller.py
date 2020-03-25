@@ -13,6 +13,9 @@ def initialise():
     arof_pool_db.arof_pool = []
 
 
+initialise()
+
+
 def create_configuration(arof_pool):  # noqa: E501
     """Create configuration
 
@@ -24,6 +27,7 @@ def create_configuration(arof_pool):  # noqa: E501
     :rtype: ArofParameters
     """
     global arof_pool_db
+    initialise()
 
     if connexion.request.is_json:
         arof_pool_db = ArofParameters.from_dict(connexion.request.get_json())  # noqa: E501
@@ -42,7 +46,7 @@ def delete_configuration():  # noqa: E501
     :rtype: None
     """
     global arof_pool_db
-    arof_pool_db = ArofParameters()
+    initialise()
     return arof_pool_db
 
 
@@ -75,14 +79,15 @@ def update_configuration(arof_pool):  # noqa: E501
     if connexion.request.is_json:
         new_arof_pool = ArofParameters.from_dict(connexion.request.get_json())  # noqa: E501
 
-        for old_arof in arof_pool_db.arof_pool:
-            replaced = False
-            for new_arof in new_arof_pool.arof_pool:
-                if old_arof.arof_id == new_arof.arof_id:
-                    replaced = True
-                    break
-            if not replaced:
-                new_arof_pool.arof_pool.append(old_arof)
+        if new_arof_pool.arof_pool:
+            for old_arof in arof_pool_db.arof_pool:
+                replaced = False
+                for new_arof in new_arof_pool.arof_pool:
+                    if old_arof.arof_id == new_arof.arof_id:
+                        replaced = True
+                        break
+                if not replaced:
+                    new_arof_pool.arof_pool.append(old_arof)
 
         arof_pool_db = new_arof_pool
 

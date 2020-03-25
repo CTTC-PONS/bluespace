@@ -113,35 +113,18 @@ definitions:
       beam-enable:
         type: "boolean"
       x-offset-angle:
-        type: "number"
+        type: "integer"
       y-offset-angle:
-        type: "number"
+        type: "integer"
       width:
-        type: "number"
+        type: "integer"
   wavelength-reference:
     type: "object"
     properties:
       wavelength-id:
         type: "integer"
       central-frequency:
-        $ref: '#/definitions/central-frequency'
-  central-frequency:
-    type: "object"
-    properties:
-      frequency-constraint:
-        $ref: "#/definitions/frequency-constraint"
-      central-frequency:
         type: "integer"
     example:
-      beam-id: 0
-      beam-enable: true
-      x-offset-angle: -90
-      y-offset-angle: 90
-      width: 502
-  frequency-constraint:
-    type: "object"
-    properties:
-      adjustment-granularity:
-        type: "string"
-      grid-type:
-        type: "string"
+      wavelength-id: 0
+      central-frequency: 1550
