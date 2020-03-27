@@ -2,33 +2,99 @@
 
 header1="Content-Type:application/json"
 header2="Accept:application/json"
-hostname="192.168.1.94"
-port="5001"
+hostname="localhost"                    # set to "$1" to pass this as argument
+port="5000"                             # similarly set to "$2" to pass this as 2nd arg
+
+# function exec_post {
+#         curl -X POST --header ${header1} --header ${header2} "http://${hostname}:${port}/api/arof/0?enable=false"
+#         curl -X POST --header ${header1} --header ${header2} "http://${hostname}:${port}/api/arof/1?enable=false"
+#         curl -X POST --header ${header1} --header ${header2} "http://${hostname}:${port}/api/arof/2?enable=false"
+#         curl -X POST --header ${header1} --header ${header2} "http://${hostname}:${port}/api/arof/3?enable=false"
+# }
 
 function exec_post {
-        curl -X POST --header ${header1} --header ${header2} "http://${hostname}:${port}/api/arof/0?enable=false"
-        curl -X POST --header ${header1} --header ${header2} "http://${hostname}:${port}/api/arof/1?enable=false"
-        curl -X POST --header ${header1} --header ${header2} "http://${hostname}:${port}/api/arof/2?enable=false"
-        curl -X POST --header ${header1} --header ${header2} "http://${hostname}:${port}/api/arof/3?enable=false"
+
+        curl --request POST \
+        --url "http://${hostname}:${port}/api/arof" \
+        --header ${header1} \
+        --data '{
+                "arof-pool": [
+                        {
+                                "arof-id": 0,
+                                "enabled": false,
+                                "wavelength": 1
+                        },
+                        {
+                                "arof-id": 1,
+                                "enabled": false,
+                                "wavelength": 1
+                        },
+                        {
+                                "arof-id": 2,
+                                "enabled": false,
+                                "wavelength": 1
+                        },
+                        {
+                                "arof-id": 3,
+                                "enabled": false,
+                                "wavelength": 1
+                        }
+                ]
+        }'
 }
 
+
 function exec_get {
-        curl -X GET --header ${header2} "http://${hostname}:${port}/api/arof"
+        curl --request GET --url "http://${hostname}:${port}/api/arof"
 }
 
 function exec_put {
 
-        curl -X PUT --header ${header1} --header ${header2} "http://${hostname}:${port}/api/arof/0?enable=true"
-        curl -X PUT --header ${header1} --header ${header2} "http://${hostname}:${port}/api/arof/1?enable=true"
-        curl -X PUT --header ${header1} --header ${header2} "http://${hostname}:${port}/api/arof/2?enable=true"
-        curl -X PUT --header ${header1} --header ${header2} "http://${hostname}:${port}/api/arof/3?enable=true"
+#         curl -X PUT --header ${header1} --header ${header2} "http://${hostname}:${port}/api/arof/0?enable=true"
+#         curl -X PUT --header ${header1} --header ${header2} "http://${hostname}:${port}/api/arof/1?enable=true"
+#         curl -X PUT --header ${header1} --header ${header2} "http://${hostname}:${port}/api/arof/2?enable=true"
+#         curl -X PUT --header ${header1} --header ${header2} "http://${hostname}:${port}/api/arof/3?enable=true"
+# }
+
+        curl --request PUT \
+        --url http://${hostname}:${port}/api/arof \
+        --header ${header1} \
+        --data '{
+                "arof-pool": [
+                        {
+                                "arof-id": 0,
+                                "enabled": true,
+                                "wavelength": 2
+                        },
+                        {
+                                "arof-id": 1,
+                                "enabled": true,
+                                "wavelength": 2
+                        },
+                        {
+                                "arof-id": 2,
+                                "enabled": true,
+                                "wavelength": 2
+                        },
+                        {
+                                "arof-id": 3,
+                                "enabled": true,
+                                "wavelength": 2
+                        }
+
+                ]
+        }'
 }
 
+# function exec_delete {
+#         curl -X DELETE --header ${header2} "http://${hostname}:${port}/api/arof/0"
+#         curl -X DELETE --header ${header2} "http://${hostname}:${port}/api/arof/1"
+#         curl -X DELETE --header ${header2} "http://${hostname}:${port}/api/arof/2"
+#         curl -X DELETE --header ${header2} "http://${hostname}:${port}/api/arof/3"
+# }
+
 function exec_delete {
-        curl -X DELETE --header ${header2} "http://${hostname}:${port}/api/arof/0"
-        curl -X DELETE --header ${header2} "http://${hostname}:${port}/api/arof/1"
-        curl -X DELETE --header ${header2} "http://${hostname}:${port}/api/arof/2"
-        curl -X DELETE --header ${header2} "http://${hostname}:${port}/api/arof/3"
+        curl -X DELETE --header ${header2} "http://${hostname}:${port}/api/arof"
 }
 
 echo "ENSURE LASERS OFF"
