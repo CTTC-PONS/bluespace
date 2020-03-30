@@ -1,0 +1,7 @@
+[v0.2]  - 2020-03-30
+	*	Added beam_width half-angle parameter [0,90]
+    *   Added beam_enable parameter 
+    *	Changed wavelength from float [nm] to int [DWDM ITU channel] 
+
+[v0.1]  - 2019-07-03
+    *   Tested with arof agent - OK

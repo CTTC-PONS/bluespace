@@ -1,131 +1,94 @@
 import requests
 
 
-def get(host):
+def get(host, port):
     """
-    Retrieve operations on beams
+    Retrieve operations on the Laser
 
     :param host: ip address from REST API agent
     :type host: str
     :return: list of operations
     """
-    request = requests.get('http://%s:5002/api/obfn' % host, headers=headers)
+    request = requests.get('http://%s:%s/api/obfn' % (host, port) , headers=headers)
     return request.json()
 
 
-def post(host, operations):
+def post(host, port, id, status, x, y, z, wavelength):
     """
-    Create operations on beams
+    Create operation on the Laser
 
     :param host: ip address from REST API agent
     :type host: str
-    :param operations: operations to be configured on the beams
-    :type operations: dict
-    :return: list of new operations
+    :param id: laser id
+    :type id: int
+    :param status: if True laser is enable, disable otherwise
+    :return: new operation
     """
-    request = requests.post('http://%s:5002/api/obfn' % host, headers=headers, json=operations)
+
+    payload = { 'obfn-pool': [{ 'beam-enable' : status, 'beam-id' : id, 'width' : z, 'x-offset-angle' : x, 'y-offset-angle' : y}], "wavelength-reference-pool" : [{'wavelength-id' : id, 'central-frequency' : wavelength}]  }
+    request = requests.post('http://%s:%s/api/obfn' % (host, port), headers=headers, json=payload)
     return request.json()
 
 
-def put(host, dataset_put):
-    request = requests.put('http://%s:5002/api/obfn' % (host), headers=headers, json=dataset_put)
-    return request.json()
-
-
-def delete(host):
+def put(host, port, id, status, x, y, z, wavelength):
     """
-    Remove operations on beams
+    Modify operation on the Laser
 
     :param host: ip address from REST API agent
     :type host: str
+    :param id: laser id
+    :type id: int
+    :param status: if True laser is enable, disable otherwise
+    :type status: bool
+    :return: operation modified
     """
-    requests.delete('http://%s:5002/api/obfn' % host, headers=headers)
+    payload = { 'obfn-pool': [{ 'beam-enable' : status, 'beam-id' : id, 'width' : z, 'x-offset-angle' : x, 'y-offset-angle' : y}], "wavelength-reference-pool" : [{'wavelength-id' : id, 'central-frequency' : wavelength}]  }
+    request = requests.put('http://%s:%s/api/obfn' % (host, port), headers=headers, json=payload)
+    return request.json()
+
+
+def delete(host, port):
+    """
+    Remove operations on the Laser
+
+    :param host: ip address from REST API agent
+    :type host: str
+    :param id: laser id
+    :type id: int
+    """
+    requests.delete('http://%s:%s/api/obfn' % (host, port), headers=headers)
 
 
 if __name__ == '__main__':
-    host = "10.1.7.84"
+    host = "localhost"
+    port = "5002"
     headers = {"Content-Type": "application/json"}
-    dataset = {
-        "obfn-pool": [
-            {
-                "beam_id": 0,
-                "beam_enable": True,
-                "x_offset_angle": -90,
-                "y_offset_angle": 90,
-                "width": 150
-            },
-            {
-                "beam_id": 1,
-                "beam_enable": True,
-                "x_offset_angle": -90,
-                "y_offset_angle": 90,
-                "width": 155
-            },
-            {
-                "beam_id": 2,
-                "beam_enable": True,
-                "x_offset_angle": -90,
-                "y_offset_angle": 90,
-                "width": 160
-            },
-            {
-                "beam_id": 3,
-                "beam_enable": True,
-                "x_offset_angle": -90,
-                "y_offset_angle": 90,
-                "width": 165
-            }
-        ],
-        "wavelength": 150
-    }
 
-    dataset_put = {
-        "obfn-pool": [
-            {
-                "beam_enable": True,
-                "beam_id": 1,
-                "width": 50,
-                "x_offset_angle": 30,
-                "y_offset_angle": 60
-            },
-            {
-                "beam_enable": False,
-                "beam_id": 2,
-                "width": 51,
-                "x_offset_angle": 31,
-                "y_offset_angle": 61
-            },
-            {
-                "beam_enable": False,
-                "beam_id": 3,
-                "width": 52,
-                "x_offset_angle": 32,
-                "y_offset_angle": 62
-            },
-            {
-                "beam_enable": True,
-                "beam_id": 4,
-                "width": 53,
-                "x_offset_angle": 33,
-                "y_offset_angle": 63
-            }
-        ]
-    }
+    print("ENSURE BEAMS OFF")
+    status = False
+    wavelength = 1
+    xOffset = 20
+    yOffset = 0
+    beamWidth = 10
+    print(post(host, port, 0, status, xOffset, yOffset, beamWidth, wavelength))
+    print(post(host, port, 1, status, xOffset, yOffset, beamWidth, wavelength))
+    print(post(host, port, 2, status, xOffset, yOffset, beamWidth, wavelength))
+    print(post(host, port, 3, status, xOffset, yOffset, beamWidth, wavelength))
 
-    print("POST")
-    print(post(host, dataset))
+    print("ENABLE BEAM 1")
+    status = True
+    beamId = 1
+    wavelength  = 3
+    xOffset = 30
+    yOffset = 10
+    beamWidth = 15
+    print(put(host, port, beamId, status, xOffset, yOffset, beamWidth, wavelength))
 
-    print("GET")
-    print(get(host))
+    print("GET OPERATIONS ON BEAMS")
+    print(get(host, port))
 
-    print("MODIFY BEAM")
-    print(put(host, dataset_put))
+    print("DISABLE BEAMS")
+    delete(host, port)
 
-    print("GET")
-    print(get(host))
-
-    print("DELETE")
-    delete(host)
-
-    print("GET")
-    print(get(host))
+    print("GET OPERATIONS ON BEAMS")
+    print(get(host, port))

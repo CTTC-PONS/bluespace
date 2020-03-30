@@ -2,7 +2,7 @@
  ============================================================================
  Name        : obfn-conf.c
  Author      : Evangelos Grivas
- Version     : v0.1
+ Version     : v0.2
  Copyright   : Eulambia Advanced Technologies 2019
  Description : OBFN configuration application. This gets called by the OBFN Agent.
   	  	  	   Parameters are passed as arguments and are being forwarded to
@@ -19,16 +19,18 @@ int main(int argc, char *argv[]) {
 	/*
 	 * Variables and Constants
 	 */
-	int 	beam_id			= 0; 				// obfn id 			-> default value: 	0 (1/4)
-	float	beam_offset_x	= 0; 				// beam_offset_x 	-> default value:	0 (no offset)
-	float	beam_offset_y	= 0; 				// beam_offset_x 	-> default value:	0 (no offset)
-	float 	ref_wavelength 	= DEFAULT_WAVELENGTH;
+	int 	beam_id			=  0; 				// beam id 			-> default value: 	0 (1/4)
+	int		beam_enable		=  0;				// beam enable		-> default value: 	0 (disabled)
+	float	beam_offset_x	=  0; 				// beam_offset_x 	-> default value:	0 (no offset)
+	float	beam_offset_y	=  0; 				// beam_offset_x 	-> default value:	0 (no offset)
+	float 	beam_width		= 10;				// beam_width		-> default value:  10 (beam width half angle of 10deg)
+	int 	ref_wavelength 	= DEFAULT_WAVELENGTH;
 
 	int 	c;
 
 	char 	*cmd = argv[0];						// store the command
 
-	if(argc == 1 || argc>11){
+	if(argc == 1 || argc>15){
 		print_help( cmd);
 		exit(0);
 	}
@@ -36,7 +38,7 @@ int main(int argc, char *argv[]) {
 	/*
 	 * Input parameters handling
 	 */
-	while( ( c = getopt(argc, argv, "hvw:i:x:y:") ) != -1 ){
+	while( ( c = getopt(argc, argv, "hvw:i:e:x:y:z:") ) != -1 ){
 
 		switch(c) {
 
@@ -47,7 +49,7 @@ int main(int argc, char *argv[]) {
 
 			case 'i':
 				beam_id = atoi(optarg);
-				verbose("<beam_id> set to %d\n", beam_id);
+				verbose("<beam_id>       set to %4d\n", beam_id);
 				if(beam_id>=0 && beam_id <BEAM_ID_MAX){
 
 				} else {
@@ -55,6 +57,11 @@ int main(int argc, char *argv[]) {
 					print_help(cmd);
 					exit(0);
 				}
+				break;
+
+			case 'e':
+				beam_enable = atoi(optarg);
+				verbose("<beam_enable>   set to %4d\n", beam_enable);
 				break;
 
 			case 'x':
@@ -67,9 +74,14 @@ int main(int argc, char *argv[]) {
 				verbose("<beam_offset_y> set to %+7.2f\n", beam_offset_y);
 				break;
 
+			case 'z':
+				beam_width = atof(optarg);
+				verbose("<beam_width>    set to %7.2f\n", beam_width);
+				break;
+
 			case 'w':
-				ref_wavelength = atof(optarg);
-				verbose("<ref_wavelength> set to %7.2f\n", ref_wavelength);
+				ref_wavelength = atoi(optarg);
+				verbose("<ref_wavelength>set to %4d\n", ref_wavelength);
 				break;
 
 			case 'h':
@@ -95,13 +107,14 @@ int obfn_conf(){
 
 void print_help(char *cmd){
 
-	printf("usage: %s [-v] [-w] -i <beam_id> -x <beam_offset_x> -y <beam_offset_y>\n", cmd);
+	printf("usage: %s [-v] -w <ref_wavelength> -i <beam_id> -e <beam_enable> -x <beam_offset_x> -y <beam_offset_y> -z <beam_width>\n", cmd);
 	printf("\n");
 	printf("   -i,             set beam id [0-3]\n");
+	printf("   -e,             enable beam [0,1] with id <beam_id>\n");
 	printf("   -x,             set beam x offset [-90,90]\n");
 	printf("   -y,             set beam y offset [-90,90]\n");
-	printf("   -w,             set reference wavelength [optional], if omitted\n"
-		   "                   the default reference wavelength (%7.2f) is used\n", DEFAULT_WAVELENGTH);
+	printf("   -z,             set beam width half-angle [0,90]\n");
+	printf("   -w,             set reference wavelength in ITU Channel [1-72]\n");
 	printf("   -v,             set verbose [optional]\n");
 	printf("   -h              print this message\n");
 }

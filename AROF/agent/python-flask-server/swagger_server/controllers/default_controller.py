@@ -50,7 +50,16 @@ def delete_configuration():  # noqa: E501
     """
     global arof_pool_db
     initialise()
-    # exec_config_app(arof_pool)
+    
+    call_arg_list = ["swagger_server/arof-conf/arof-conf", "-v", "-i", "0", "-e", "0"]
+    call(call_arg_list)
+    call_arg_list = ["swagger_server/arof-conf/arof-conf", "-v", "-i", "1", "-e", "0"]
+    call(call_arg_list)
+    call_arg_list = ["swagger_server/arof-conf/arof-conf", "-v", "-i", "2", "-e", "0"]
+    call(call_arg_list)
+    call_arg_list = ["swagger_server/arof-conf/arof-conf", "-v", "-i", "3", "-e", "0"]
+    call(call_arg_list)
+
     return arof_pool_db
 
 

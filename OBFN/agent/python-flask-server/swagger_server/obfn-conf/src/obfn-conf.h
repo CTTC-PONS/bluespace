@@ -13,8 +13,8 @@
 #include <unistd.h> 					// getopt
 #include <stdarg.h>						// variable arguments
 
-#define BEAM_ID_MAX 		   4
-#define DEFAULT_WAVELENGTH	1553.0
+#define BEAM_ID_MAX 		4
+#define DEFAULT_WAVELENGTH	1           // ITU Channel 1 (190.1 THz)
 
 /*
  * Print help message
