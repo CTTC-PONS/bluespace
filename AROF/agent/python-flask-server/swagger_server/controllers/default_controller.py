@@ -33,7 +33,7 @@ def create_configuration(arof_pool):  # noqa: E501
 
     if connexion.request.is_json:
         arof_pool_db = ArofParameters.from_dict(connexion.request.get_json())  # noqa: E501
-        exec_config_app(arof_pool)
+        exec_config_app(arof_pool_db)
         return arof_pool_db
 
     else:
@@ -49,16 +49,11 @@ def delete_configuration():  # noqa: E501
     :rtype: None
     """
     global arof_pool_db
-    initialise()
-    
-    call_arg_list = ["swagger_server/arof-conf/arof-conf", "-v", "-i", "0", "-e", "0"]
-    call(call_arg_list)
-    call_arg_list = ["swagger_server/arof-conf/arof-conf", "-v", "-i", "1", "-e", "0"]
-    call(call_arg_list)
-    call_arg_list = ["swagger_server/arof-conf/arof-conf", "-v", "-i", "2", "-e", "0"]
-    call(call_arg_list)
-    call_arg_list = ["swagger_server/arof-conf/arof-conf", "-v", "-i", "3", "-e", "0"]
-    call(call_arg_list)
+
+    for arof in arof_pool_db.arof_pool:
+        arof.enabled = False
+
+    exec_config_app(arof_pool_db)
 
     return arof_pool_db
 
@@ -92,6 +87,8 @@ def update_configuration(arof_pool):  # noqa: E501
     if connexion.request.is_json:
         new_arof_pool = ArofParameters.from_dict(connexion.request.get_json())  # noqa: E501
 
+        exec_config_app(new_arof_pool)
+
         if new_arof_pool.arof_pool:
             for old_arof in arof_pool_db.arof_pool:
                 replaced = False
@@ -103,19 +100,20 @@ def update_configuration(arof_pool):  # noqa: E501
                     new_arof_pool.arof_pool.append(old_arof)
 
         arof_pool_db = new_arof_pool
-        exec_config_app(arof_pool)
+
         return arof_pool_db
 
     else:
         return 'Error!'
 
-def exec_config_app(arof_pool):
+
+def exec_config_app(arof_parameters):
     """Execute configuration application
 
     Call application that is responsible to configure the actual ARoF HW   
     
-    :param arof_pool: arof pool
-    :type arof_pool: dict | bytes
+    :param arof_parameters: arof pool
+    :type arof_parameters: ArofParameters
 
     :param arof_id: arof id
     :type arof_id: int [0,3]
@@ -127,11 +125,9 @@ def exec_config_app(arof_pool):
     :rtype: ArofParameters
     """
     # print(['AROF_POOL:', arof_pool])
-    for k in arof_pool.values():
-        for l in range(len(k)): 
-            [arof_id, enable, wavelength] = k[l].values()
+    for arof in arof_parameters.arof_pool:
             # call_arg_list = ["swagger_server/arof-conf/arof-conf", "-i", "{:d}".format(arof_id), "-e", "{:d}".format(enable), "-w", "{:d}".format(wavelength)]
-            call_arg_list = ["swagger_server/arof-conf/arof-conf", "-v", "-i", "{:d}".format(arof_id), "-e", "{:d}".format(enable), "-w", "{:d}".format(wavelength)]
+            call_arg_list = ["swagger_server/arof-conf/arof-conf", "-v", "-i", "{:d}".format(arof.arof_id), "-e", "{:d}".format(arof.enabled), "-w", "{:d}".format(arof.wavelength)]
             # print (['CMD:', call_arg_list])
             call(call_arg_list)
 
