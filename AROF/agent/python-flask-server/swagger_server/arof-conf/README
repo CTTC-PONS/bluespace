@@ -1,12 +1,3 @@
-===================================================================================
- Name        :  arof-conf.c
- Author      :  Evangelos Grivas
- Version     :  0.2
- Copyright   :  Eulambia Advanced Technologies 2020
- Description :  ARoF configuration application. This gets called by the ARoF Agent.
-                Parameters are passed as arguments and are being forwarded to
-                ARoF HW through? -> ARoF HW hasn't been fully described yet..
-                This was brought to the plenary meeting in Eindhoven and decided to
-                pass arof status (on/off) to a pin (3.3V LVTTL). Also pass this
-                info to a on-board led for visualization of the arof status.
-===================================================================================
+This script is called from the agent. It calls the real 
+executable (arof-conf), which is expected to be in the 
+PATH variable.

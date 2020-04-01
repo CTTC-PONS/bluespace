@@ -1,9 +1,3 @@
-===================================================================================
- Name        :  obfn-conf.c
- Author      :  Evangelos Grivas
- Version     :  0.2
- Copyright   :  Eulambia Advanced Technologies 2020
- Description :  OBFN configuration application. This gets called by the OBFN Agent.
-  	  	  	    Parameters are passed as arguments and are being forwarded to
-  	  	  	    OBFN HW through UART/USB (FDTI FT230X)
-===================================================================================
+This script is called from the agent. It calls the real 
+executable (obfn-conf), which is expected to be in the 
+PATH variable.
