@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 
 header1="Content-Type:application/json"
 header2="Accept:application/json"
