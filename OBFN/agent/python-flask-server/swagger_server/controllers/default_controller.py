@@ -33,8 +33,6 @@ def create_configuration(obfn_params):  # noqa: E501
         exec_config_app(obfn_parameters_db)
         return obfn_parameters_db
 
-        
-
     else:
         return 'Error!'
 
@@ -86,10 +84,9 @@ def update_configuration(obfn_params):  # noqa: E501
 
     if connexion.request.is_json:
         new_obfn_parameters = ObfnParameters.from_dict(connexion.request.get_json())  # noqa: E501
+        ids_to_configure = [obfn.beam_id for obfn in new_obfn_parameters.obfn_pool]
 
-        exec_config_app(new_obfn_parameters)
-
-
+        # Build new db
         if new_obfn_parameters.obfn_pool:
             for old_obfn in obfn_parameters_db.obfn_pool:
                 replaced = False
@@ -101,7 +98,6 @@ def update_configuration(obfn_params):  # noqa: E501
                     new_obfn_parameters.obfn_pool.append(old_obfn)
         else:
             new_obfn_parameters.obfn_pool = obfn_parameters_db.obfn_pool
-
         if new_obfn_parameters.wavelength_reference_pool:
             for old_wavelength_reference in obfn_parameters_db.wavelength_reference_pool:
                 replaced = False
@@ -115,6 +111,19 @@ def update_configuration(obfn_params):  # noqa: E501
             new_obfn_parameters.wavelength_reference_pool = obfn_parameters_db.wavelength_reference_pool
 
         obfn_parameters_db = new_obfn_parameters
+
+        # Merge changes with the whole information
+        parameters_to_configure = ObfnParameters()
+        parameters_to_configure.obfn_pool, parameters_to_configure.wavelength_reference_pool = [], []
+        for idd in ids_to_configure:
+            for obfn in obfn_parameters_db.obfn_pool:
+                if obfn.beam_id == idd:
+                    parameters_to_configure.obfn_pool.append(obfn)
+            for wavelength in obfn_parameters_db.wavelength_reference_pool:
+                if wavelength.wavelength_id == idd:
+                    parameters_to_configure.wavelength_reference_pool.append(wavelength)
+        exec_config_app(parameters_to_configure)
+
         return obfn_parameters_db
 
     else:
@@ -144,24 +153,17 @@ def exec_config_app(obfn_params):
 
     :rtype: ObfnParameters
     """
-    # print(['OBFN_PARAMS:', obfn_params])
-    # print(['kOBFN_PARAMS:', obfn_params.keys()])
-    # print(['vOBFN_PARAMS:', obfn_params.values()])
+    print('exec_config_app')
     for obfn in obfn_params.obfn_pool:
-        # print('runk', k)
-        # print('runw', obfn_params['wavelength-reference-pool'][l])
-        # print(beam_enable)
-        # print(beam_id)
-        # print(width)
-        # print(x_offset_angle)
-        # print(y_offset_angle)
-        # print(wavelength)
         print(obfn)
-        wavelength = obfn_params.wavelength_reference_pool[obfn.beam_id].central_frequency
+        for wavelength_reference in obfn_params.wavelength_reference_pool:
+            if wavelength_reference.wavelength_id == obfn.beam_id:
+                wavelength = wavelength_reference.central_frequency
         call_arg_list = ["swagger_server/obfn-conf/obfn-conf", "-v", "-w", "{:f}".format(wavelength), "-i",
             "{:d}".format(obfn.beam_id), "-e", "{:d}".format(obfn.beam_enable),
             "-x", "{:f}".format(obfn.x_offset_angle), "-y", "{:f}".format(obfn.y_offset_angle),
             "-z", "{:f}".format(obfn.width)]
+
         print (['CMD:', call_arg_list])
         call(call_arg_list)
     return 'bOK'

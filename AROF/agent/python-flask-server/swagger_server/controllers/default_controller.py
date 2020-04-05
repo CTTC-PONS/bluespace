@@ -126,9 +126,11 @@ def exec_config_app(arof_parameters):
     """
     # print(['AROF_POOL:', arof_pool])
     for arof in arof_parameters.arof_pool:
-            # call_arg_list = ["swagger_server/arof-conf/arof-conf", "-i", "{:d}".format(arof_id), "-e", "{:d}".format(enable), "-w", "{:d}".format(wavelength)]
+        if arof.wavelength:
             call_arg_list = ["swagger_server/arof-conf/arof-conf", "-v", "-i", "{:d}".format(arof.arof_id), "-e", "{:d}".format(arof.enabled), "-w", "{:d}".format(arof.wavelength)]
-            # print (['CMD:', call_arg_list])
-            call(call_arg_list)
+        else:
+            call_arg_list = ["swagger_server/arof-conf/arof-conf", "-v", "-i", "{:d}".format(arof.arof_id), "-e", "{:d}".format(arof.enabled), "-w", "{:d}".format(0)]
+        print (['CMD:', call_arg_list])
+        call(call_arg_list)
 
     return 'bOK'
