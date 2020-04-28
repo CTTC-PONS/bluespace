@@ -1,3 +1,0 @@
-This script is called from the agent. It calls the real 
-executable (arof-conf), which is expected to be in the 
-PATH variable.
