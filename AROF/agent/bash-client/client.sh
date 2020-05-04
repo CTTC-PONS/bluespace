@@ -50,22 +50,22 @@ function exec_put {
         --data '{
                 "arof-pool": [
                         {
-                                "arof-id": 0,
+                                "id": 0,
                                 "enabled": true,
                                 "wavelength": 2
                         },
                         {
-                                "arof-id": 1,
+                                "id": 1,
                                 "enabled": true,
                                 "wavelength": 2
                         },
                         {
-                                "arof-id": 2,
+                                "id": 2,
                                 "enabled": true,
                                 "wavelength": 2
                         },
                         {
-                                "arof-id": 3,
+                                "id": 3,
                                 "enabled": true,
                                 "wavelength": 2
                         }

@@ -9,10 +9,10 @@ port="$2"                               # similarly set to "$2" to pass this as 
 function exec_post {
 
         curl --request POST \
-        --url "http://${hostname}:${port}/arof" \
+        --url "http://${hostname}:${port}/obfn" \
         --header ${header1} \
         --data '{
-                "arof-pool": [
+                "obfn-pool": [
                         {
                                 "id": 0,
                                 "enabled": false,
@@ -39,33 +39,33 @@ function exec_post {
 
 
 function exec_get {
-        curl --request GET --url "http://${hostname}:${port}/arof"
+        curl --request GET --url "http://${hostname}:${port}/obfn"
 }
 
 function exec_put {
 
         curl --request PUT \
-        --url http://${hostname}:${port}/arof \
+        --url http://${hostname}:${port}/obfn \
         --header ${header1} \
         --data '{
-                "arof-pool": [
+                "obfn-pool": [
                         {
-                                "arof-id": 0,
+                                "id": 0,
                                 "enabled": true,
                                 "wavelength": 2
                         },
                         {
-                                "arof-id": 1,
+                                "id": 1,
                                 "enabled": true,
                                 "wavelength": 2
                         },
                         {
-                                "arof-id": 2,
+                                "id": 2,
                                 "enabled": true,
                                 "wavelength": 2
                         },
                         {
-                                "arof-id": 3,
+                                "id": 3,
                                 "enabled": true,
                                 "wavelength": 2
                         }
@@ -77,10 +77,10 @@ function exec_put {
 function exec_post_set {
 
         curl --request POST \
-        --url "http://${hostname}:${port}/arof" \
+        --url "http://${hostname}:${port}/obfn" \
         --header ${header1} \
         --data '{
-                "arof-pool": [
+                "obfn-pool": [
                         {
                                 "id": 0,
                                 "enabled": true,
@@ -107,7 +107,7 @@ function exec_post_set {
 }
 
 function exec_delete {
-        curl -X DELETE --header ${header2} "http://${hostname}:${port}/arof"
+        curl -X DELETE --header ${header2} "http://${hostname}:${port}/obfn"
 }
 
 echo "ENSURE LASERS OFF"
