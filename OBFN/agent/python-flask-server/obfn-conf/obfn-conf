@@ -1,0 +1,9 @@
+#!/bin/sh
+
+obfnConfPath=$(which arof-conf)
+
+if [ -x "$obfnConfPath" ]; then
+    exec obfn-conf "$@"
+else
+    echo "obfn-conf not found in PATH, args $@ ignored.."
+fi

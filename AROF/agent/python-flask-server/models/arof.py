@@ -1,3 +1,6 @@
+from subprocess import call
+
+
 class Arof:
     def __init__(self, arof_id=None, wavelength=None, enabled=None):
         self.arof_id = int()
@@ -26,7 +29,7 @@ class Arof:
                          "-e", "{:d}".format(self.enabled),
                          "-w", "{:f}".format(self.wavelength)]
         print('call_arg_list: {}'.format(call_arg_list))
-        # call(call_arg_list)
+        call(call_arg_list)
 
     def deactivate(self):
         self.enabled = False

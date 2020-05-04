@@ -1,3 +1,6 @@
+from subprocess import call
+
+
 class Obfn:
     def __init__(self, arof_id=None, wavelength=None, enabled=None, offset_x=None, offset_y=None, width=None):
         self.obfn_id = int()
@@ -39,7 +42,7 @@ class Obfn:
                          "-y", "{:f}".format(self.offset_y),
                          "-z", "{:f}".format(self.width)]
         print('call_arg_list: {}'.format(call_arg_list))
-        # call(call_arg_list)
+        call(call_arg_list)
 
     def deactivate(self):
         self.enabled = False
