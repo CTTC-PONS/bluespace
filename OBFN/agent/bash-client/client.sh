@@ -2,124 +2,122 @@
 
 header1="Content-Type:application/json"
 header2="Accept:application/json"
-hostname="$1"                           # set to "$1" to pass this as argument
-port="$2"                               # similarly set to "$2" to pass this as 2nd arg
-
+hostname="$1"
+port="$2"
 
 function exec_post {
-
-        curl --request POST \
-        --url "http://${hostname}:${port}/obfn" \
-        --header ${header1} \
+        curl -X POST --header ${header1} --url "http://${hostname}:${port}/obfn" \
         --data '{
                 "obfn-pool": [
                         {
-                                "id": 0,
-                                "enabled": false,
-                                "wavelength": 1
+                                "beam-enable": true,
+                                "beam-id": 0,
+                                "width": 50,
+                                "x-offset-angle": 30,
+                                "y-offset-angle": 60
                         },
                         {
-                                "id": 1,
-                                "enabled": false,
-                                "wavelength": 1
+                                "beam-enable": true,
+                                "beam-id": 1,
+                                "width": 51,
+                                "x-offset-angle": 31,
+                                "y-offset-angle": 61
                         },
                         {
-                                "id": 2,
-                                "enabled": false,
-                                "wavelength": 1
+                                "beam-enable": true,
+                                "beam-id": 2,
+                                "width": 52,
+                                "x-offset-angle": 32,
+                                "y-offset-angle": 62
                         },
                         {
-                                "id": 3,
-                                "enabled": false,
-                                "wavelength": 1
+                                "beam-enable": true,
+                                "beam-id": 3,
+                                "width": 53,
+                                "x-offset-angle": 33,
+                                "y-offset-angle": 63
+                        }
+                ],
+                "wavelength-reference-pool": [
+                        {
+                                "wavelength-id": 0,
+                                "central-frequency": 1
+                        },
+                        {
+                                "wavelength-id": 1,
+                                "central-frequency": 2
+                        },
+                        {
+                                "wavelength-id": 2,
+                                "central-frequency": 3
+                        },
+                        {
+                                "wavelength-id": 3,
+                                "central-frequency": 4
                         }
                 ]
         }'
 }
 
-
 function exec_get {
-        curl --request GET --url "http://${hostname}:${port}/obfn"
+        curl -X GET --header ${header2} --url "http://${hostname}:${port}/obfn"
 }
 
 function exec_put {
-
-        curl --request PUT \
-        --url http://${hostname}:${port}/obfn \
-        --header ${header1} \
+        curl -X PUT --header ${header1} --url "http://${hostname}:${port}/obfn" \
         --data '{
                 "obfn-pool": [
                         {
-                                "id": 0,
-                                "enabled": true,
-                                "wavelength": 2
-                        },
-                        {
-                                "id": 1,
-                                "enabled": true,
-                                "wavelength": 2
-                        },
-                        {
-                                "id": 2,
-                                "enabled": true,
-                                "wavelength": 2
-                        },
-                        {
-                                "id": 3,
-                                "enabled": true,
-                                "wavelength": 2
+                                "beam-enable": true,
+                                "beam-id": 0,
+                                "width": 10,
+                                "x-offset-angle": 20,
+                                "y-offset-angle": 30
                         }
-
+                ],
+                "wavelength-reference-pool": [
+                        {
+                                "wavelength-id": 0,
+                                "central-frequency": 31
+                        }
                 ]
-        }'
+        }'                
 }
 
 function exec_post_set {
-
-        curl --request POST \
-        --url "http://${hostname}:${port}/obfn" \
-        --header ${header1} \
+        curl -X POST --header ${header1} --url "http://${hostname}:${port}/obfn" \
         --data '{
                 "obfn-pool": [
                         {
-                                "id": 0,
-                                "enabled": true,
-                                "wavelength": 2
-                        },
-                        {
-                                "id": 1,
-                                "enabled": true,
-                                "wavelength": 2
-                        },
-                        {
-                                "id": 2,
-                                "enabled": true,
-                                "wavelength": 2
-                        },
-                        {
-                                "id": 3,
-                                "enabled": true,
-                                "wavelength": 2
+                                "beam-enable": true,
+                                "beam-id": 0,
+                                "width": 10,
+                                "x-offset-angle": 20,
+                                "y-offset-angle": 30
                         }
-
+                ],
+                "wavelength-reference-pool": [
+                        {
+                                "wavelength-id": 0,
+                                "central-frequency": 31
+                        }
                 ]
-        }'
+        }'                
 }
 
 function exec_delete {
-        curl -X DELETE --header ${header2} "http://${hostname}:${port}/obfn"
+        curl -X DELETE "http://${hostname}:${port}/obfn"
 }
 
-echo "ENSURE LASERS OFF"
+echo "POST"
 exec_post
-echo "ENABLE LASERS"
+echo "GET"
+exec_get
+echo "MODIFY BEAM with beam_id = 1"
 # PUT not implemented
-# exec_put
+#exec_put
 exec_post_set
-echo "GET OPERATIONS ON LASERS"
+echo "GET"
 exec_get
-echo "DISABLE LASERS"
-exec_post
-exec_get
+echo "DELETE"
 exec_delete
-exec_get
