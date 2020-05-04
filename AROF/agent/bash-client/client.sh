@@ -89,7 +89,7 @@ function exec_put {
 function exec_post_set {
 
         curl --request POST \
-        --url http://${hostname}:${port}/arof \
+        --url "http://${hostname}:${port}/arof" \
         --header ${header1} \
         --data '{
                 "arof-pool": [
